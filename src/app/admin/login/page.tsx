@@ -5,6 +5,8 @@ import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { Lock, Mail } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 export default function AdminLogin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

@@ -16,9 +16,12 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 
 ### 3. Create Database Tables
 
-Run the following SQL in your Supabase SQL Editor:
+Run the SQL file in your Supabase SQL Editor:
 
-```sql
+**Option 1:** Copy and paste from `supabase/schema.sql`
+
+**Option 2:** Run this SQL directly:
+
 -- Create posts table
 CREATE TABLE posts (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -51,7 +54,6 @@ CREATE POLICY "Public posts are viewable by everyone"
 CREATE POLICY "Authenticated users can manage posts"
   ON posts FOR ALL
   USING (auth.role() = 'authenticated');
-```
 
 ### 4. Create Admin User
 

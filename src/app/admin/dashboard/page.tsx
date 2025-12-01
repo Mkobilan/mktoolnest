@@ -5,6 +5,8 @@ import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { PlusCircle, Edit, Trash2, LogOut, Save, X } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 type Post = {
     id: string;
     title: string;
