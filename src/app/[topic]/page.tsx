@@ -7,20 +7,20 @@ const topicConfig = {
     baybolt: {
         title: "Baybolt",
         subtitle: "Tips & Tools for Mechanics",
-        gradient: "from-red-500 via-red-600 to-orange-600",
-        textColor: "text-red-500",
+        gradient: "from-orange-500 via-orange-600 to-blue-900",
+        textColor: "text-orange-500",
     },
     hugloom: {
         title: "HugLoom",
         subtitle: "Tips & Tools for Caretakers",
-        gradient: "from-emerald-500 via-emerald-600 to-teal-600",
-        textColor: "text-emerald-500",
+        gradient: "from-pink-400 via-rose-400 to-red-400",
+        textColor: "text-pink-400",
     },
     daylabor: {
         title: "Day Labor on Demand",
         subtitle: "Tips & Tools for Contractors",
-        gradient: "from-amber-500 via-amber-600 to-yellow-600",
-        textColor: "text-amber-500",
+        gradient: "from-purple-500 via-fuchsia-500 to-pink-500",
+        textColor: "text-purple-500",
     },
 };
 
@@ -63,7 +63,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                     <div className={`inline-block px-5 py-2 rounded-full bg-gradient-to-r ${config.gradient} text-white text-sm font-bold mb-6 shadow-lg`}>
                         {config.subtitle}
                     </div>
-                    <h1 className="text-5xl md:text-6xl font-black mb-6">{config.title}</h1>
+                    <h1 className={`text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r ${config.gradient} bg-clip-text text-transparent`}>{config.title}</h1>
                     <p className="text-xl text-gray-400 max-w-2xl">
                         Explore our latest articles, expert guides, and professional insights.
                     </p>
@@ -74,7 +74,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {posts.map((post, index) => (
                             <Link href={`/blog/${post.slug}`} key={post.id}>
-                                <article className="card h-full group cursor-pointer" style={{ animationDelay: `${index * 50}ms` }}>
+                                <article className={`card h-full group cursor-pointer ${topic}-card`} style={{ animationDelay: `${index * 50}ms` }}>
                                     <div className="p-6">
                                         {post.image_url && (
                                             <div style={{ marginBottom: '1rem' }}>
@@ -91,11 +91,11 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                                 />
                                             </div>
                                         )}
-                                        <div className="flex items-center gap-2 text-xs text-gray-500 mb-4 font-medium">
+                                        <div className={`flex items-center gap-2 text-xs font-medium mb-4 ${config.textColor}`}>
                                             <Calendar size={14} />
                                             <time>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
                                         </div>
-                                        <h2 className="text-xl font-bold mb-3 text-white group-hover:text-primary transition-colors leading-tight">
+                                        <h2 className={`text-xl font-bold mb-3 ${config.textColor} group-hover:brightness-110 transition-all leading-tight`}>
                                             {post.title}
                                         </h2>
                                         <p className="text-gray-400 text-sm mb-5 line-clamp-3 leading-relaxed">

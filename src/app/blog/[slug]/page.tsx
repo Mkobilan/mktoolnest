@@ -21,18 +21,18 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     const topicConfig = {
         baybolt: {
             name: "Baybolt",
-            gradient: "from-red-500 via-red-600 to-orange-600",
-            textColor: "text-red-500"
+            gradient: "from-orange-500 via-orange-600 to-blue-900",
+            textColor: "text-orange-500"
         },
         hugloom: {
             name: "HugLoom",
-            gradient: "from-emerald-500 via-emerald-600 to-teal-600",
-            textColor: "text-emerald-500"
+            gradient: "from-pink-400 via-rose-400 to-red-400",
+            textColor: "text-pink-400"
         },
         daylabor: {
             name: "Day Labor on Demand",
-            gradient: "from-amber-500 via-amber-600 to-yellow-600",
-            textColor: "text-amber-500"
+            gradient: "from-purple-500 via-fuchsia-500 to-pink-500",
+            textColor: "text-purple-500"
         },
     };
 
@@ -51,12 +51,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 </Link>
 
                 {/* Article Header */}
-                <article className="fade-in-up">
-                    <div className={`inline-block px-5 py-2 rounded-full bg-gradient-to-r ${config.gradient} text-white text-sm font-bold mb-6 shadow-lg`}>
+                <article className={`fade-in-up blog-post-${post.topic}`}>
+                    <div className={`inline-block px-5 py-2 rounded-full topic-badge text-white text-sm font-bold mb-6 shadow-lg`}>
                         {config.name}
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+                    <h1 className={`text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight bg-gradient-to-r ${config.gradient} bg-clip-text text-transparent`}>
                         {post.title}
                     </h1>
 
@@ -77,7 +77,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         </div>
                     )}
 
-                    <div className="flex items-center gap-6 text-sm text-gray-500 mb-12 font-medium">
+                    <div className="flex items-center gap-6 text-sm metadata-text mb-12 font-medium">
                         <div className="flex items-center gap-2">
                             <Calendar size={16} />
                             <time>{new Date(post.created_at).toLocaleDateString('en-US', {
