@@ -148,7 +148,7 @@ export default function AdminDashboard() {
                         </div>
                     ) : (
                         filteredPosts.map((post) => (
-                            <div key={post.id} className="card p-6 flex items-center justify-between">
+                            <div key={post.id} className={`card p-6 flex items-center justify-between ${post.topic}-card`}>
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3 mb-2">
                                         <h3 className="text-xl font-bold">{post.title}</h3>

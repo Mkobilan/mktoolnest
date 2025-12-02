@@ -167,7 +167,8 @@ a {
 }
 
 /* Baybolt Card Text Colors */
-.baybolt-card h2 {
+.baybolt-card h2,
+.baybolt-card h3 {
   color: #FF6B1A !important;
 }
 
@@ -175,7 +176,8 @@ a {
   color: #FFB380 !important;
 }
 
-.baybolt-card .text-sm {
+.baybolt-card .text-sm,
+.baybolt-card .text-xs {
   color: #FFA366 !important;
 }
 
@@ -190,7 +192,8 @@ a {
 }
 
 /* HugLoom Card Text Colors */
-.hugloom-card h2 {
+.hugloom-card h2,
+.hugloom-card h3 {
   color: #FF8A80 !important;
 }
 
@@ -198,7 +201,8 @@ a {
   color: #FFB3AE !important;
 }
 
-.hugloom-card .text-sm {
+.hugloom-card .text-sm,
+.hugloom-card .text-xs {
   color: #FFA39D !important;
 }
 
@@ -213,7 +217,8 @@ a {
 }
 
 /* Day Labor Card Text Colors */
-.daylabor-card h2 {
+.daylabor-card h2,
+.daylabor-card h3 {
   color: #D946EF !important;
 }
 
@@ -221,7 +226,8 @@ a {
   color: #E879F9 !important;
 }
 
-.daylabor-card .text-sm {
+.daylabor-card .text-sm,
+.daylabor-card .text-xs {
   color: #E879F9 !important;
 }
 
