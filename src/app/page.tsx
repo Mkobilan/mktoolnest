@@ -35,17 +35,17 @@ export default function Home() {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section className="py-24 md:py-32 px-4">
+      <section className="pt-[32px] pb-8 px-8">
         <div className="container text-center">
-          <h1 className="font-black mb-4 gradient-text text-4xl md:text-5xl">
+          <h1 className="font-black mb-[32px] gradient-text text-4xl md:text-5xl">
             Welcome to MK Tool Nest
           </h1>
 
-          <div className="mb-12">
+          <div className="mb-[16px]">
             <span className="text-xl font-medium text-gray-400">Your Professional Resource Hub</span>
           </div>
 
-          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-[96px] leading-relaxed">
             Empowering professionals with <span className="text-white font-semibold">expert insights</span>,
             <span className="text-white font-semibold"> actionable tools</span>, and
             <span className="text-white font-semibold"> industry knowledge</span> across three specialized fields.
@@ -54,14 +54,14 @@ export default function Home() {
       </section>
 
       {/* Topics Grid */}
-      <section className="py-12 px-4">
+      <section className="pt-[4px] pb-[32px] px-[4px]">
         <div className="container">
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-[32px] max-w-7xl mx-auto">
             {topics.map((topic, index) => {
               const Icon = topic.icon;
               return (
                 <Link href={`/${topic.id}`} key={topic.id}>
-                  <div className={`card p-8 h-full group cursor-pointer ${topic.id === 'baybolt' ? 'baybolt-card' : ''} ${topic.id === 'hugloom' ? 'hugloom-card' : ''} ${topic.id === 'daylabor' ? 'daylabor-card' : ''}`} style={{ animationDelay: `${index * 100}ms` }}>
+                  <div className={`card p-8 h-full group cursor-pointer flex flex-col items-center text-center ${topic.id === 'baybolt' ? 'baybolt-card' : ''} ${topic.id === 'hugloom' ? 'hugloom-card' : ''} ${topic.id === 'daylabor' ? 'daylabor-card' : ''}`} style={{ animationDelay: `${index * 100}ms` }}>
                     {/* Icon with Gradient Background */}
                     <div className="relative mb-6">
                       <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-2xl`}>
@@ -81,7 +81,7 @@ export default function Home() {
                     </p>
 
                     {/* CTA */}
-                    <div className={`flex items-center ${topic.iconColor} font-semibold text-sm group-hover:gap-3 transition-all duration-300`}>
+                    <div className={`flex items-center justify-center ${topic.iconColor} font-semibold text-sm group-hover:gap-3 transition-all duration-300`}>
                       <span>Explore Articles</span>
                       <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                     </div>
@@ -94,7 +94,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 px-4">
+      <section className="pt-20 pb-[64px] px-4">
         <div className="container">
           <div className="card built-for-pros-card p-12 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-purple-500/10"></div>
