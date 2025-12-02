@@ -23,10 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <header className="glass sticky top-0 z-50">
-          <div className="container flex items-center justify-between h-20">
-            <Link href="/" className="text-2xl font-black tracking-tight hover:text-primary transition-colors">
-              mktoolnest
-            </Link>
+          <div className="container relative flex items-center justify-between min-h-[150px] py-8">
             <nav className="hidden md:flex gap-8 text-sm font-semibold">
               <Link href="/baybolt" className="flex items-center gap-2 hover:text-red-500 transition-colors group">
                 <Wrench size={16} className="group-hover:rotate-12 transition-transform" />
@@ -41,7 +38,12 @@ export default function RootLayout({
                 <span>Day Labor</span>
               </Link>
             </nav>
-            <div className="flex items-center gap-4">
+
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2 font-black tracking-tight hover:opacity-80 transition-opacity gradient-text whitespace-nowrap" style={{ fontSize: '4rem', lineHeight: '1.1' }}>
+              MK Tool Nest
+            </Link>
+
+            <div className="flex items-center gap-4 ml-auto">
               <Link href="/admin/dashboard" className="text-sm font-medium text-gray-500 hover:text-foreground transition-colors">
                 Admin
               </Link>

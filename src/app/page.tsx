@@ -9,8 +9,8 @@ export default function Home() {
       subtitle: "For Mechanics",
       description: "Master automotive repair with expert guides, diagnostic tips, and industry insights from seasoned professionals.",
       icon: Wrench,
-      gradient: "from-red-500 via-red-600 to-orange-600",
-      iconColor: "text-red-500",
+      gradient: "from-orange-500 via-orange-600 to-blue-900",
+      iconColor: "text-orange-500",
     },
     {
       id: "hugloom",
@@ -18,8 +18,8 @@ export default function Home() {
       subtitle: "For Caretakers",
       description: "Compassionate caregiving strategies, wellness resources, and emotional support for healthcare heroes.",
       icon: Heart,
-      gradient: "from-emerald-500 via-emerald-600 to-teal-600",
-      iconColor: "text-emerald-500",
+      gradient: "from-pink-400 via-rose-400 to-red-400",
+      iconColor: "text-pink-400",
     },
     {
       id: "daylabor",
@@ -27,8 +27,8 @@ export default function Home() {
       subtitle: "For Contractors",
       description: "Scale your contracting business with project management tactics, labor insights, and growth strategies.",
       icon: Hammer,
-      gradient: "from-amber-500 via-amber-600 to-yellow-600",
-      iconColor: "text-amber-500",
+      gradient: "from-purple-500 via-fuchsia-500 to-pink-500",
+      iconColor: "text-purple-500",
     },
   ];
 
@@ -37,14 +37,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="py-24 md:py-32 px-4">
         <div className="container text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
-            <Sparkles size={16} className="text-primary" />
-            <span className="text-sm font-medium text-gray-400">Your Professional Resource Hub</span>
-          </div>
-
-          <h1 className="font-black mb-6 gradient-text">
-            Welcome to mktoolnest
+          <h1 className="font-black mb-4 gradient-text text-4xl md:text-5xl">
+            Welcome to MK Tool Nest
           </h1>
+
+          <div className="mb-12">
+            <span className="text-xl font-medium text-gray-400">Your Professional Resource Hub</span>
+          </div>
 
           <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
             Empowering professionals with <span className="text-white font-semibold">expert insights</span>,
@@ -62,7 +61,7 @@ export default function Home() {
               const Icon = topic.icon;
               return (
                 <Link href={`/${topic.id}`} key={topic.id}>
-                  <div className="card p-8 h-full group cursor-pointer" style={{ animationDelay: `${index * 100}ms` }}>
+                  <div className={`card p-8 h-full group cursor-pointer ${topic.id === 'baybolt' ? 'baybolt-card' : ''} ${topic.id === 'hugloom' ? 'hugloom-card' : ''} ${topic.id === 'daylabor' ? 'daylabor-card' : ''}`} style={{ animationDelay: `${index * 100}ms` }}>
                     {/* Icon with Gradient Background */}
                     <div className="relative mb-6">
                       <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-2xl`}>
@@ -73,11 +72,11 @@ export default function Home() {
 
                     {/* Content */}
                     <div className="mb-4">
-                      <h2 className="text-2xl font-bold mb-1 text-white">{topic.title}</h2>
-                      <p className="text-sm font-medium text-gray-500">{topic.subtitle}</p>
+                      <h2 className={`text-2xl font-bold mb-1 ${topic.id === 'baybolt' ? 'text-orange-500' : 'text-white'}`}>{topic.title}</h2>
+                      <p className={`text-sm font-medium ${topic.id === 'baybolt' ? 'text-orange-400' : 'text-gray-500'}`}>{topic.subtitle}</p>
                     </div>
 
-                    <p className="text-gray-400 mb-6 leading-relaxed">
+                    <p className={`mb-6 leading-relaxed ${topic.id === 'baybolt' ? 'text-orange-300/90' : 'text-gray-400'}`}>
                       {topic.description}
                     </p>
 
