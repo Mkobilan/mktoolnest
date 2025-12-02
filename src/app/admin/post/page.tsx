@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Save, X, Upload, Image as ImageIcon } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
-export default function PostEditor() {
+function PostEditorContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const postId = searchParams.get('id');
@@ -310,5 +310,13 @@ export default function PostEditor() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function PostEditor() {
+    return (
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+            <PostEditorContent />
+        </Suspense>
     );
 }
