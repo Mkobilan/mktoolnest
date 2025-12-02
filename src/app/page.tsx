@@ -96,10 +96,10 @@ export default function Home() {
       {/* Stats Section */}
       <section className="py-20 px-4">
         <div className="container">
-          <div className="card p-12 text-center relative overflow-hidden">
+          <div className="card built-for-pros-card p-12 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-purple-500/10"></div>
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Built for Professionals</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Built for Professionals</h2>
               <p className="text-gray-400 mb-8 max-w-2xl mx-auto text-lg">
                 Whether you're turning wrenches, caring for others, or building the future—we've got the insights you need to excel.
               </p>

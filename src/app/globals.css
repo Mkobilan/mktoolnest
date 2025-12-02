@@ -225,6 +225,19 @@ a {
   color: #E879F9 !important;
 }
 
+/* Built For Professionals Card Custom Hover */
+.built-for-pros-card:hover {
+  border-color: rgba(99, 102, 241, 0.6);
+  box-shadow:
+    0 0 30px rgba(99, 102, 241, 0.3),
+    0 0 60px rgba(236, 72, 153, 0.2),
+    0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.built-for-pros-card:hover::before {
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), rgba(236, 72, 153, 0.5), rgba(245, 158, 11, 0.5), transparent);
+}
+
 /* Typography */
 h1,
 h2,
