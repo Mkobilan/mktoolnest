@@ -149,8 +149,8 @@ export default function AdminDashboard() {
                     ) : (
                         filteredPosts.map((post) => (
                             <div key={post.id} className={`card p-6 flex items-center justify-between ${post.topic}-card`}>
-                                <div className="flex-1">
-                                    <div className="flex items-center gap-3 mb-2">
+                                <div className="flex-1 text-center">
+                                    <div className="flex items-center justify-center gap-3 mb-2">
                                         <h3 className="text-xl font-bold">{post.title}</h3>
                                         {!post.published && (
                                             <span className="px-2 py-1 text-xs bg-yellow-500/20 text-yellow-500 rounded">
@@ -159,7 +159,7 @@ export default function AdminDashboard() {
                                         )}
                                     </div>
                                     <p className="text-sm text-gray-400 mb-2">{post.excerpt}</p>
-                                    <div className="flex items-center gap-4 text-xs text-gray-500">
+                                    <div className="flex items-center justify-center gap-4 text-xs text-gray-500">
                                         <span className="capitalize">{post.topic}</span>
                                         <span>•</span>
                                         <span>{new Date(post.created_at).toLocaleDateString()}</span>

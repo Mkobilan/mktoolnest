@@ -75,7 +75,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                         {posts.map((post, index) => (
                             <Link href={`/blog/${post.slug}`} key={post.id}>
                                 <article className={`card h-full group cursor-pointer ${topic}-card`} style={{ animationDelay: `${index * 50}ms` }}>
-                                    <div className="p-6">
+                                    <div className="p-6 text-center">
                                         {post.image_url && (
                                             <div style={{ marginBottom: '1rem' }}>
                                                 <img
@@ -86,12 +86,13 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                                         height: '80px',
                                                         objectFit: 'cover',
                                                         borderRadius: '8px',
-                                                        display: 'block'
+                                                        display: 'block',
+                                                        margin: '0 auto'
                                                     }}
                                                 />
                                             </div>
                                         )}
-                                        <div className={`flex items-center gap-2 text-xs font-medium mb-4 ${config.textColor}`}>
+                                        <div className={`flex items-center justify-center gap-2 text-xs font-medium mb-4 ${config.textColor}`}>
                                             <Calendar size={14} />
                                             <time>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
                                         </div>
@@ -101,7 +102,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                         <p className="text-gray-400 text-sm mb-5 line-clamp-3 leading-relaxed">
                                             {post.excerpt}
                                         </p>
-                                        <div className={`flex items-center ${config.textColor} text-sm font-semibold group-hover:gap-3 transition-all`}>
+                                        <div className={`flex items-center justify-center ${config.textColor} text-sm font-semibold group-hover:gap-3 transition-all`}>
                                             <span>Read Article</span>
                                             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                                         </div>
