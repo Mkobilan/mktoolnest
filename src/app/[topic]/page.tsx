@@ -32,6 +32,26 @@ export async function generateStaticParams() {
     ];
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ topic: string }> }) {
+    const { topic } = await params;
+    const config = topicConfig[topic as keyof typeof topicConfig];
+
+    if (!config) {
+        return {
+            title: "Topic Not Found | MK Tool Nest",
+        };
+    }
+
+    return {
+        title: `${config.title} - ${config.subtitle} | MK Tool Nest`,
+        description: `Explore expert guides, tips, and resources for ${config.title}. ${config.subtitle} at MK Tool Nest.`,
+        openGraph: {
+            title: `${config.title} - ${config.subtitle} | MK Tool Nest`,
+            description: `Explore expert guides, tips, and resources for ${config.title}. ${config.subtitle} at MK Tool Nest.`,
+        },
+    };
+}
+
 export default async function TopicPage({ params }: { params: Promise<{ topic: string }> }) {
     const { topic } = await params;
 

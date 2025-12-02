@@ -93,6 +93,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SEO Content Section */}
+      <section className="py-16 px-4 bg-black/20">
+        <div className="container max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
+            Your Premier Destination for Professional Growth
+          </h2>
+          <div className="space-y-6 text-gray-400 leading-relaxed">
+            <p>
+              At <strong className="text-white">MK Tool Nest</strong>, we are the ultimate <strong className="text-white">professional resource hub</strong> dedicated to serving the backbone of our economy.
+              Whether you are looking for the <strong className="text-white">best automotive diagnostic tools</strong> and <strong className="text-white">auto repair guides</strong> in our
+              <span className="text-orange-400"> Baybolt</span> section, seeking <strong className="text-white">caregiver burnout support</strong> and <strong className="text-white">home health care tips</strong> through
+              <span className="text-pink-400"> HugLoom</span>, or searching for <strong className="text-white">construction project management</strong> strategies and <strong className="text-white">day labor hiring tips</strong> in
+              <span className="text-purple-400"> Day Labor on Demand</span>, we have curated resources just for you.
+            </p>
+            <p>
+              Our mission is to empower individuals with <strong className="text-white">expert industry insights</strong> and the tools they need to succeed.
+              From <strong className="text-white">ASE certification tips</strong> for mechanics to <strong className="text-white">patient advocacy resources</strong> for caretakers and <strong className="text-white">contractor business growth</strong> strategies,
+              MK Tool Nest is your partner in professional excellence. Explore our specialized topics today and discover why we are the top choice for <strong className="text-white">career growth for trades</strong>.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="pt-20 pb-[64px] px-4">
         <div className="container">

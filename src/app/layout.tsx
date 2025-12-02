@@ -10,8 +10,47 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "mktoolnest - Professional Tips & Tools",
-  description: "Expert insights for Mechanics, Caretakers, and Contractors. Your trusted resource hub for professional growth.",
+  title: "MK Tool Nest - Professional Resource Hub for Mechanics, Caretakers & Contractors",
+  description: "Your trusted resource hub for professional growth. Expert insights, tools, and guides for Mechanics (Baybolt), Caretakers (HugLoom), and Contractors (Day Labor).",
+  keywords: [
+    "Professional Resource Hub",
+    "Mechanic Tools",
+    "Caregiver Support",
+    "Contractor Guides",
+    "Day Labor Resources",
+    "Automotive Repair",
+    "Healthcare Tips",
+    "Construction Management",
+    "Career Growth for Trades",
+    "Expert Industry Insights",
+    "Automotive Diagnostic Tools",
+    "Best Mechanic Tools 2024",
+    "Auto Repair Guides",
+    "ASE Certification Tips",
+    "Caregiver Burnout Support",
+    "Home Health Care Tips",
+    "Patient Advocacy Resources",
+    "Caretaker Wellness",
+    "Construction Project Management",
+    "Day Labor Hiring Tips",
+    "Contractor Business Growth",
+    "Construction Safety Standards"
+  ],
+  verification: {
+    google: "wnwX0v0OGT7E25CuYA6r3_NjExggVU9PFITJXnpMp8U",
+  },
+  openGraph: {
+    title: "MK Tool Nest - Professional Resource Hub",
+    description: "Empowering professionals with expert insights and actionable tools across automotive, healthcare, and construction industries.",
+    type: "website",
+    locale: "en_US",
+    siteName: "MK Tool Nest",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MK Tool Nest - Professional Resource Hub",
+    description: "Expert insights for Mechanics, Caretakers, and Contractors.",
+  },
 };
 
 export default function RootLayout({
