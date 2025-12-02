@@ -60,6 +60,23 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         {post.title}
                     </h1>
 
+                    {/* Featured Image - Small Thumbnail */}
+                    {post.image_url && (
+                        <div style={{ marginBottom: '1rem' }}>
+                            <img
+                                src={post.image_url}
+                                alt={post.title}
+                                style={{
+                                    width: '80px',
+                                    height: '80px',
+                                    objectFit: 'cover',
+                                    borderRadius: '8px',
+                                    display: 'block'
+                                }}
+                            />
+                        </div>
+                    )}
+
                     <div className="flex items-center gap-6 text-sm text-gray-500 mb-12 font-medium">
                         <div className="flex items-center gap-2">
                             <Calendar size={16} />
@@ -74,17 +91,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             <span>{Math.ceil(post.content.split(' ').length / 200)} min read</span>
                         </div>
                     </div>
-
-                    {/* Featured Image */}
-                    {post.image_url && (
-                        <div className="aspect-video overflow-hidden rounded-2xl mb-16 shadow-2xl">
-                            <img
-                                src={post.image_url}
-                                alt={post.title}
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                    )}
 
                     {/* Excerpt */}
                     <div className="text-xl text-gray-300 leading-relaxed mb-12 p-6 border-l-4 border-primary bg-white/5 rounded-r-lg">

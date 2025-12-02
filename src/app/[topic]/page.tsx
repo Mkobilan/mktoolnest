@@ -75,17 +75,22 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                         {posts.map((post, index) => (
                             <Link href={`/blog/${post.slug}`} key={post.id}>
                                 <article className="card h-full group cursor-pointer" style={{ animationDelay: `${index * 50}ms` }}>
-                                    {post.image_url && (
-                                        <div className="aspect-video overflow-hidden relative">
-                                            <img
-                                                src={post.image_url}
-                                                alt={post.title}
-                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                        </div>
-                                    )}
                                     <div className="p-6">
+                                        {post.image_url && (
+                                            <div style={{ marginBottom: '1rem' }}>
+                                                <img
+                                                    src={post.image_url}
+                                                    alt={post.title}
+                                                    style={{
+                                                        width: '80px',
+                                                        height: '80px',
+                                                        objectFit: 'cover',
+                                                        borderRadius: '8px',
+                                                        display: 'block'
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
                                         <div className="flex items-center gap-2 text-xs text-gray-500 mb-4 font-medium">
                                             <Calendar size={14} />
                                             <time>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
