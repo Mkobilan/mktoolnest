@@ -201,6 +201,7 @@ function PostEditorContent() {
                                 <option value="baybolt">Baybolt - Mechanics</option>
                                 <option value="hugloom">HugLoom - Caretakers</option>
                                 <option value="daylabor">Day Labor - Contractors</option>
+                                <option value="raidmemegen">Raid Generator - Gamers</option>
                             </select>
                         </div>
 

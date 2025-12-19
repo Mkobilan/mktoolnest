@@ -22,6 +22,12 @@ const topicConfig = {
         gradient: "from-purple-500 via-fuchsia-500 to-pink-500",
         textColor: "text-purple-500",
     },
+    raidmemegen: {
+        title: "Raid Generator",
+        subtitle: "Tips & Tools for Gamers",
+        gradient: "from-[#00FF41] via-[#008F11] to-[#003B00]",
+        textColor: "text-[#00FF41]",
+    },
 };
 
 export async function generateStaticParams() {
@@ -29,6 +35,7 @@ export async function generateStaticParams() {
         { topic: 'baybolt' },
         { topic: 'hugloom' },
         { topic: 'daylabor' },
+        { topic: 'raidmemegen' },
     ];
 }
 

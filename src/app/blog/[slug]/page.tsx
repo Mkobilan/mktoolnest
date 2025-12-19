@@ -35,6 +35,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             gradient: "from-purple-500 via-fuchsia-500 to-pink-500",
             textColor: "text-purple-500"
         },
+        raidmemegen: {
+            name: "Raid Generator",
+            gradient: "from-[#00FF41] via-[#008F11] to-[#003B00]",
+            textColor: "text-[#00FF41]"
+        },
     };
 
     const config = topicConfig[post.topic as keyof typeof topicConfig];

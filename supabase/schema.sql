@@ -5,7 +5,7 @@ CREATE TABLE posts (
   slug TEXT UNIQUE NOT NULL,
   content TEXT NOT NULL,
   excerpt TEXT NOT NULL,
-  topic TEXT NOT NULL CHECK (topic IN ('baybolt', 'hugloom', 'daylabor')),
+  topic TEXT NOT NULL CHECK (topic IN ('baybolt', 'hugloom', 'daylabor', 'raidmemegen')),
   published BOOLEAN DEFAULT true,
   image_url TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,

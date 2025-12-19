@@ -231,6 +231,32 @@ a {
   color: #E879F9 !important;
 }
 
+/* Raid Generator Card Custom Hover */
+.raidmemegen-card:hover {
+  border-color: rgba(0, 255, 65, 0.6);
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.4), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.raidmemegen-card:hover::before {
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.5), transparent);
+}
+
+/* Raid Generator Card Text Colors */
+.raidmemegen-card h2,
+.raidmemegen-card h3 {
+  color: #00FF41 !important;
+}
+
+.raidmemegen-card p {
+  color: #00FF41 !important;
+  opacity: 0.8;
+}
+
+.raidmemegen-card .text-sm,
+.raidmemegen-card .text-xs {
+  color: #00FF41 !important;
+}
+
 /* Built For Professionals Card Custom Hover */
 .built-for-pros-card:hover {
   border-color: rgba(99, 102, 241, 0.6);
@@ -314,6 +340,11 @@ p {
 .topic-daylabor {
   background: linear-gradient(135deg, #D946EF 0%, #a855f7 100%);
   box-shadow: 0 4px 20px rgba(217, 70, 239, 0.4);
+}
+
+.topic-raidmemegen {
+  background: linear-gradient(135deg, #00FF41 0%, #003B00 100%);
+  box-shadow: 0 4px 20px rgba(0, 255, 65, 0.4);
 }
 
 /* Blog Content Styles */

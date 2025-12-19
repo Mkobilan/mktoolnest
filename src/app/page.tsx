@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Wrench, Heart, Hammer, ArrowRight, Sparkles } from "lucide-react";
+import { Wrench, Heart, Hammer, ArrowRight, Gamepad2 } from "lucide-react";
 
 export default function Home() {
   const topics = [
@@ -30,6 +30,15 @@ export default function Home() {
       gradient: "from-purple-500 via-fuchsia-500 to-pink-500",
       iconColor: "text-purple-500",
     },
+    {
+      id: "raidmemegen",
+      title: "Raid Generator",
+      subtitle: "For Gamers",
+      description: "Generate squad-specific raid plans for Helldivers 2, WoW, and more. Add Meme Chaos for the ultimate strategy.",
+      icon: Gamepad2,
+      gradient: "from-[#00FF41] via-[#008F11] to-[#003B00]",
+      iconColor: "text-[#00FF41]",
+    },
   ];
 
   return (
@@ -48,7 +57,7 @@ export default function Home() {
           <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-[96px] leading-relaxed">
             Empowering professionals with <span className="text-white font-semibold">expert insights</span>,
             <span className="text-white font-semibold"> actionable tools</span>, and
-            <span className="text-white font-semibold"> industry knowledge</span> across three specialized fields.
+            <span className="text-white font-semibold"> industry knowledge</span> across four specialized fields.
           </p>
         </div>
       </section>
@@ -56,12 +65,12 @@ export default function Home() {
       {/* Topics Grid */}
       <section className="pt-[4px] pb-[32px] px-[4px]">
         <div className="container">
-          <div className="grid md:grid-cols-3 gap-[32px] max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-[32px] max-w-7xl mx-auto">
             {topics.map((topic, index) => {
               const Icon = topic.icon;
               return (
                 <Link href={`/${topic.id}`} key={topic.id}>
-                  <div className={`card p-8 h-full group cursor-pointer flex flex-col items-center text-center ${topic.id === 'baybolt' ? 'baybolt-card' : ''} ${topic.id === 'hugloom' ? 'hugloom-card' : ''} ${topic.id === 'daylabor' ? 'daylabor-card' : ''}`} style={{ animationDelay: `${index * 100}ms` }}>
+                  <div className={`card p-8 h-full group cursor-pointer flex flex-col items-center text-center ${topic.id === 'baybolt' ? 'baybolt-card' : ''} ${topic.id === 'hugloom' ? 'hugloom-card' : ''} ${topic.id === 'daylabor' ? 'daylabor-card' : ''} ${topic.id === 'raidmemegen' ? 'raidmemegen-card' : ''}`} style={{ animationDelay: `${index * 100}ms` }}>
                     {/* Icon with Gradient Background */}
                     <div className="relative mb-6">
                       <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-2xl`}>
@@ -72,11 +81,11 @@ export default function Home() {
 
                     {/* Content */}
                     <div className="mb-4">
-                      <h2 className={`text-2xl font-bold mb-1 ${topic.id === 'baybolt' ? 'text-orange-500' : 'text-white'}`}>{topic.title}</h2>
-                      <p className={`text-sm font-medium ${topic.id === 'baybolt' ? 'text-orange-400' : 'text-gray-500'}`}>{topic.subtitle}</p>
+                      <h2 className={`text-2xl font-bold mb-1 ${topic.id === 'baybolt' ? 'text-orange-500' : topic.id === 'raidmemegen' ? 'text-[#00FF41]' : 'text-white'}`}>{topic.title}</h2>
+                      <p className={`text-sm font-medium ${topic.id === 'baybolt' ? 'text-orange-400' : topic.id === 'raidmemegen' ? 'text-[#00FF41]' : 'text-gray-500'}`}>{topic.subtitle}</p>
                     </div>
 
-                    <p className={`mb-6 leading-relaxed ${topic.id === 'baybolt' ? 'text-orange-300/90' : 'text-gray-400'}`}>
+                    <p className={`mb-6 leading-relaxed ${topic.id === 'baybolt' ? 'text-orange-300/90' : topic.id === 'raidmemegen' ? 'text-[#00FF41]/80' : 'text-gray-400'}`}>
                       {topic.description}
                     </p>
 
@@ -108,9 +117,15 @@ export default function Home() {
               <span className="text-purple-400"> Day Labor on Demand</span>, we have curated resources just for you.
             </p>
             <p>
+              Now catering to the gaming community, our <span className="text-[#00FF41]">Raid Generator</span> section offers the ultimate <strong className="text-white">squad-specific raid plans</strong>.
+              Whether you need a <strong className="text-white">Destiny 2 raid generator</strong> for complex strategies or a <strong className="text-white">WoW raid strategy generator</strong> for mythic bosses,
+              our "Meme Chaos" vibe ensures you have a laugh while you strategize for <strong className="text-white">Helldivers 2 squad plans</strong> and <strong className="text-white">MMO encounters</strong>.
+            </p>
+            <p>
               Our mission is to empower individuals with <strong className="text-white">expert industry insights</strong> and the tools they need to succeed.
-              From <strong className="text-white">ASE certification tips</strong> for mechanics to <strong className="text-white">patient advocacy resources</strong> for caretakers and <strong className="text-white">contractor business growth</strong> strategies,
-              MK Tool Nest is your partner in professional excellence. Explore our specialized topics today and discover why we are the top choice for <strong className="text-white">career growth for trades</strong>.
+              From <strong className="text-white">ASE certification tips</strong> for mechanics to <strong className="text-white">patient advocacy resources</strong> for caretakers,
+              and <strong className="text-white">contractor business growth</strong> strategies to <strong className="text-white">winning raid tactics</strong>,
+              MK Tool Nest is your partner in professional excellence. Explore our specialized topics today and discover why we are the top choice for <strong className="text-white">career growth for trades</strong> and <strong className="text-white">gaming strategy</strong>.
             </p>
           </div>
         </div>
@@ -124,12 +139,12 @@ export default function Home() {
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Built for Professionals</h2>
               <p className="text-gray-400 mb-8 max-w-2xl mx-auto text-lg">
-                Whether you're turning wrenches, caring for others, or building the future—we've got the insights you need to excel.
+                Whether you're turning wrenches, caring for others, building the future, or leading a raid—we've got the insights you need to excel.
               </p>
-              <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto">
+              <div className="grid grid-cols-4 gap-4 md:gap-8 max-w-3xl mx-auto">
                 <div>
-                  <div className="text-4xl font-black gradient-text mb-2">3</div>
-                  <div className="text-sm text-gray-500 font-medium">Industries</div>
+                  <div className="text-4xl font-black gradient-text mb-2">4</div>
+                  <div className="text-xs md:text-sm text-gray-500 font-medium">Industries</div>
                 </div>
                 <div>
                   <div className="text-4xl font-black gradient-text mb-2">∞</div>
