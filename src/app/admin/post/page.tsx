@@ -69,7 +69,10 @@ function PostEditorContent() {
                 .update(formData)
                 .eq("id", postId);
 
-            if (!error) {
+            if (error) {
+                console.error('Update error:', error);
+                alert(`Error updating post: ${error.message}`);
+            } else {
                 router.push("/admin/dashboard");
             }
         } else {
@@ -78,7 +81,10 @@ function PostEditorContent() {
                 .from("posts")
                 .insert([formData]);
 
-            if (!error) {
+            if (error) {
+                console.error('Insert error:', error);
+                alert(`Error creating post: ${error.message}`);
+            } else {
                 router.push("/admin/dashboard");
             }
         }
