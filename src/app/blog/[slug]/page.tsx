@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { notFound } from "next/navigation";
+import { linkify } from "@/utils/linkify";
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -100,7 +101,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     {/* Content */}
                     <div className="blog-content prose-lg">
                         <div
-                            dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }}
+                            dangerouslySetInnerHTML={{
+                                __html: linkify(post.content).replace(/\n/g, '<br />')
+                            }}
                         />
                     </div>
 
