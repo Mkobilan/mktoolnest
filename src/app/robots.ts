@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/admin/',
         },
-        sitemap: 'https://mktoolnest.com/sitemap.xml', // Replace with actual domain if different
+        sitemap: 'https://mktoolnest.vercel.app/sitemap.xml',
     }
 }

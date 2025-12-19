@@ -24,9 +24,12 @@ ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
 -- Policy: Anyone can read published posts
 CREATE POLICY "Public posts are viewable by everyone"
   ON posts FOR SELECT
+  TO anon
   USING (published = true);
 
 -- Policy: Authenticated users can do everything
 CREATE POLICY "Authenticated users can manage posts"
   ON posts FOR ALL
-  USING (auth.role() = 'authenticated');
+  TO authenticated
+  USING (true)
+  WITH CHECK (true);
