@@ -204,6 +204,7 @@ function PostEditorContent() {
                                 onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
                                 className="w-full px-4 py-2 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
                             >
+                                <option value="hubplate">HubPlate - Restaurateurs</option>
                                 <option value="baybolt">Baybolt - Mechanics</option>
                                 <option value="hugloom">HugLoom - Caretakers</option>
                                 <option value="daylabor">Day Labor - Contractors</option>

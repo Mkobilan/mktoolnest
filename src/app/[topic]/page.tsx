@@ -28,6 +28,12 @@ const topicConfig = {
         gradient: "from-[#00FF41] via-[#008F11] to-[#003B00]",
         textColor: "text-[#00FF41]",
     },
+    hubplate: {
+        title: "HubPlate",
+        subtitle: "Tips & Tools for Restaurateurs",
+        gradient: "from-red-600 via-orange-500 to-red-600",
+        textColor: "text-red-500",
+    },
 };
 
 export async function generateStaticParams() {
@@ -36,6 +42,7 @@ export async function generateStaticParams() {
         { topic: 'hugloom' },
         { topic: 'daylabor' },
         { topic: 'raidmemegen' },
+        { topic: 'hubplate' },
     ];
 }
 

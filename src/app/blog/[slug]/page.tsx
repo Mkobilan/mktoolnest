@@ -40,6 +40,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             gradient: "from-[#00FF41] via-[#008F11] to-[#003B00]",
             textColor: "text-[#00FF41]"
         },
+        hubplate: {
+            name: "HubPlate",
+            gradient: "from-red-600 via-orange-500 to-red-600",
+            textColor: "text-red-500"
+        },
     };
 
     const config = topicConfig[post.topic as keyof typeof topicConfig];

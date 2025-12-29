@@ -156,6 +156,31 @@ a {
   opacity: 1;
 }
 
+/* HubPlate Card Custom Hover */
+.hubplate-card:hover {
+  border-color: rgba(220, 38, 38, 0.6);
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.4), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.hubplate-card:hover::before {
+  background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.5), transparent);
+}
+
+/* HubPlate Card Text Colors */
+.hubplate-card h2,
+.hubplate-card h3 {
+  color: #ef4444 !important;
+}
+
+.hubplate-card p {
+  color: #fdba74 !important;
+}
+
+.hubplate-card .text-sm,
+.hubplate-card .text-xs {
+  color: #fca5a5 !important;
+}
+
 /* Baybolt Card Custom Hover */
 .baybolt-card:hover {
   border-color: rgba(255, 107, 26, 0.6);
@@ -477,4 +502,26 @@ select:focus {
 
 .blog-post-daylabor .metadata-text {
   color: #E879F9 !important;
+}
+
+/* HubPlate Blog Posts */
+.blog-post-hubplate h1 {
+  background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.topic-hubplate {
+  background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+}
+
+.blog-post-hubplate .topic-badge {
+  background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+}
+
+.blog-post-hubplate .metadata-text {
+  color: #fdba74 !important;
 }

@@ -120,6 +120,7 @@ export default function AdminDashboard() {
                             className="appearance-none btn btn-outline pl-4 pr-10 py-3 bg-card border-primary/30 hover:border-primary text-foreground min-w-[160px]"
                         >
                             <option value="all">All Topics</option>
+                            <option value="hubplate">HubPlate</option>
                             <option value="baybolt">Baybolt</option>
                             <option value="hugloom">HugLoom</option>
                             <option value="daylabor">Day Labor</option>
