@@ -3,6 +3,43 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { notFound } from "next/navigation";
 import { linkify } from "@/utils/linkify";
+import { Metadata } from "next";
+import ShareModal from "./ShareModal";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const supabase = await createClient();
+    const { data: post } = await supabase
+        .from("posts")
+        .select("*")
+        .eq("slug", slug)
+        .eq("published", true)
+        .single();
+
+    if (!post) {
+        return {
+            title: 'Not Found',
+        }
+    }
+
+    return {
+        title: post.title,
+        description: post.excerpt,
+        openGraph: {
+            title: post.title,
+            description: post.excerpt,
+            url: `/blog/${slug}`,
+            images: post.image_url ? [post.image_url] : [],
+            type: 'article',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: post.excerpt,
+            images: post.image_url ? [post.image_url] : [],
+        },
+    }
+}
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -101,6 +138,13 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             <Clock size={16} />
                             <span>{Math.ceil(post.content.split(' ').length / 200)} min read</span>
                         </div>
+                        <div className="ml-auto">
+                            <ShareModal
+                                title={post.title}
+                                buttonClassName={`border border-white/20`}
+                                gradientClass={config.gradient}
+                            />
+                        </div>
                     </div>
 
                     {/* Excerpt */}
@@ -132,3 +176,4 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         </div>
     );
 }
+
