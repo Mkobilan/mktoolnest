@@ -8,6 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const staticRoutes = [
         '',
         '/blog',
+        '/hubplate',
         '/baybolt',
         '/hugloom',
         '/daylabor',
@@ -16,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
-        changeFrequency: route === '/blog' ? 'daily' as const : 'daily' as const,
+        changeFrequency: route === '/blog' ? 'daily' as const : 'weekly' as const,
         priority: route === '' ? 1 : (route === '/blog' ? 0.9 : 0.8),
     }))
 

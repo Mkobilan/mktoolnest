@@ -11,9 +11,12 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mktoolnest.vercel.app'),
-  title: "MK Tool Nest - Professional Resource Hub for Mechanics, Caretakers, Contractors & Gamers",
-  description: "Your trusted resource hub for professional growth and gaming strategies. Expert insights, tools, and guides for Mechanics (Baybolt), Caretakers (HugLoom), Contractors (Day Labor), and Gamers (Raid Generator).",
+  title: "MK Tool Nest - Professional Resource Hub for Restaurateurs, Mechanics, Caretakers, Contractors & Gamers",
+  description: "Your trusted resource hub for professional growth and gaming strategies. Expert insights, tools, and guides for Restaurateurs (HubPlate), Mechanics (Baybolt), Caretakers (HugLoom), Contractors (Day Labor), and Gamers (Raid Generator).",
   keywords: [
+    "Restaurant Management Tips",
+    "Best Restaurant POS System",
+    "Restaurant Profitability AI",
     "Professional Resource Hub",
     "Mechanic Tools 2025",
     "Caregiver Support Networks",
@@ -56,7 +59,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "MK Tool Nest - Professional Resource Hub & Gaming Strategy",
-    description: "Empowering professionals and gamers with expert insights and actionable tools across automotive, healthcare, construction, and gaming industries.",
+    description: "Empowering professionals and gamers with expert insights and actionable tools across restaurant management, automotive, healthcare, construction, and gaming industries.",
     url: 'https://mktoolnest.vercel.app',
     siteName: 'MK Tool Nest',
     images: [
