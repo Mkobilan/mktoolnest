@@ -16,33 +16,47 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         .eq("published", true)
         .single();
 
+    const baseUrl = 'https://mktoolnest.vercel.app';
+
     if (!post) {
         return {
-            title: 'Not Found',
+            title: 'Not Found | MK Tool Nest',
         }
     }
 
+    const imageUrl = post.image_url || `${baseUrl}/icon.png`;
+
     return {
-        title: post.title,
+        title: `${post.title} | MK Tool Nest`,
         description: post.excerpt,
         alternates: {
-            canonical: `/blog/${slug}`,
+            canonical: `${baseUrl}/blog/${slug}`,
         },
         openGraph: {
             title: post.title,
             description: post.excerpt,
-            url: `/blog/${slug}`,
-            images: post.image_url ? [post.image_url] : [],
+            url: `${baseUrl}/blog/${slug}`,
+            images: [
+                {
+                    url: imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: post.title,
+                },
+            ],
             type: 'article',
+            publishedTime: post.created_at,
+            authors: ['MK Tool Nest'],
         },
         twitter: {
             card: 'summary_large_image',
             title: post.title,
             description: post.excerpt,
-            images: post.image_url ? [post.image_url] : [],
+            images: [imageUrl],
         },
     }
 }
+
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;

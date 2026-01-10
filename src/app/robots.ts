@@ -1,12 +1,17 @@
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
+    const baseUrl = 'https://mktoolnest.vercel.app'
+
     return {
-        rules: {
-            userAgent: '*',
-            allow: '/',
-            disallow: '/admin/',
-        },
-        sitemap: 'https://mktoolnest.vercel.app/sitemap.xml',
+        rules: [
+            {
+                userAgent: '*',
+                allow: '/',
+                disallow: ['/admin', '/api'],
+            },
+        ],
+        sitemap: `${baseUrl}/sitemap.xml`,
     }
 }
+

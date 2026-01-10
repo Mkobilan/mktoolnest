@@ -57,6 +57,17 @@ export const metadata: Metadata = {
   verification: {
     google: "wnwX0v0OGT7E25CuYA6r3_NjExggVU9PFITJXnpMp8U",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
     title: "MK Tool Nest - Professional Resource Hub & Gaming Strategy",
     description: "Empowering professionals and gamers with expert insights and actionable tools across restaurant management, automotive, healthcare, construction, and gaming industries.",

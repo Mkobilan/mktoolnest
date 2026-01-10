@@ -50,6 +50,8 @@ export async function generateMetadata({ params }: { params: Promise<{ topic: st
     const { topic } = await params;
     const config = topicConfig[topic as keyof typeof topicConfig];
 
+    const baseUrl = 'https://mktoolnest.vercel.app';
+
     if (!config) {
         return {
             title: "Topic Not Found | MK Tool Nest",
@@ -59,12 +61,25 @@ export async function generateMetadata({ params }: { params: Promise<{ topic: st
     return {
         title: `${config.title} - ${config.subtitle} | MK Tool Nest`,
         description: `Explore expert guides, tips, and resources for ${config.title}. ${config.subtitle} at MK Tool Nest.`,
+        alternates: {
+            canonical: `${baseUrl}/${topic}`,
+        },
         openGraph: {
             title: `${config.title} - ${config.subtitle} | MK Tool Nest`,
             description: `Explore expert guides, tips, and resources for ${config.title}. ${config.subtitle} at MK Tool Nest.`,
+            url: `${baseUrl}/${topic}`,
+            images: [
+                {
+                    url: `${baseUrl}/icon.png`,
+                    width: 512,
+                    height: 512,
+                    alt: config.title,
+                },
+            ],
         },
     };
 }
+
 
 export default async function TopicPage({ params }: { params: Promise<{ topic: string }> }) {
     const { topic } = await params;
