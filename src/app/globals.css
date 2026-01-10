@@ -147,7 +147,6 @@ a {
 }
 
 .card:hover {
-  transform: translateY(-8px);
   border-color: var(--card-hover);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
