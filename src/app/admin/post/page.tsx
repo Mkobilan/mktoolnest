@@ -27,7 +27,6 @@ function PostEditorContent() {
     const [isEditing, setIsEditing] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [imagePreview, setImagePreview] = useState<string>("");
-    const editorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (postId) {
@@ -55,9 +54,6 @@ function PostEditorContent() {
             });
             setIsEditing(true);
             setImagePreview(data.image_url || "");
-            if (editorRef.current) {
-                editorRef.current.innerHTML = data.content;
-            }
         }
         setLoading(false);
     };
@@ -229,22 +225,9 @@ function PostEditorContent() {
 
                         <div>
                             <label className="block text-sm font-medium mb-2">Content</label>
-                            <div
-                                ref={editorRef}
-                                contentEditable={true}
-                                onInput={(e) => {
-                                    setFormData({ ...formData, content: (e.target as HTMLDivElement).innerHTML });
-                                }}
-                                onPaste={(e) => {
-                                    // Default paste behavior in contentEditable usually preserves formatting
-                                    // if it's coming from a source that provides HTML (like another webpage).
-                                    // We'll let it handle it naturally, but we sync the state.
-                                    setTimeout(() => {
-                                        if (editorRef.current) {
-                                            setFormData({ ...formData, content: editorRef.current.innerHTML });
-                                        }
-                                    }, 0);
-                                }}
+                            <textarea
+                                value={formData.content}
+                                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                                 className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring min-h-[300px] overflow-y-auto prose-invert prose-sm max-w-none"
                                 style={{
                                     whiteSpace: 'pre-wrap',

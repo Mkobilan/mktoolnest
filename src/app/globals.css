@@ -378,17 +378,6 @@ p {
   font-size: 1.125rem;
 }
 
-.blog-content ol,
-.blog-content ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.blog-content li {
-  margin-bottom: 0.5rem;
-}
-
 .blog-content a {
   color: var(--primary);
   text-decoration: underline;

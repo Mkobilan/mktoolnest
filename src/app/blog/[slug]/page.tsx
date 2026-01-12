@@ -170,7 +170,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     </div>
 
                     {/* Content */}
-                    <div className="blog-content">
+                    <div className="blog-content prose-lg">
                         <div
                             dangerouslySetInnerHTML={{
                                 __html: linkify(post.content).replace(/\n/g, '<br />')
