@@ -232,7 +232,9 @@ function PostEditorContent() {
                                 style={{
                                     whiteSpace: 'pre-wrap',
                                     wordBreak: 'break-word',
-                                    outline: 'none'
+                                    outline: 'none',
+                                    resize: 'vertical',
+                                    maxWidth: '100%'
                                 }}
                             />
                         </div>
