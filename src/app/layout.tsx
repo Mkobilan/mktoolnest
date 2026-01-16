@@ -11,13 +11,17 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mktoolnest.vercel.app'),
-  title: "MK Tool Nest - Professional Resource Hub for Restaurateurs, Mechanics, Caretakers, Contractors & Gamers",
-  description: "Your trusted resource hub for professional growth and gaming strategies. Expert insights, tools, and guides for Restaurateurs (HubPlate), Mechanics (Baybolt), Caretakers (HugLoom), Contractors (Day Labor), and Gamers (Raid Generator).",
+  title: "MK Tool Nest - Professional Resource Hub & Restaurant Management Insights",
+  description: "Your trusted resource hub for professional growth and restaurant excellence. Expert insights for Restaurateurs (HubPlate), Mechanics (Baybolt), Caretakers (HugLoom), Contractors (Day Labor), and Gamers (Raid Generator). Now featuring online reservations, gift card management, and advanced inventory tracking.",
   keywords: [
+    "Online Restaurant Reservations",
+    "Digital Gift Card Management",
+    "Restaurant Inventory Log Software",
+    "Recipe Management Tools",
+    "Restaurant Profitability AI",
+    "HubPlate Restaurant Insights",
     "Restaurant Management Tips",
     "Best Restaurant POS System",
-    "Restaurant Profitability AI",
-    "Professional Resource Hub",
     "Mechanic Tools 2025",
     "Caregiver Support Networks",
     "Contractor Business Guides",
