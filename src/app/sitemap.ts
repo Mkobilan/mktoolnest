@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
         changeFrequency: route === '/blog' ? 'daily' as const : 'weekly' as const,
-        priority: route === '' ? 1 : 0.9,
+        priority: route === '' ? 1 : 0.8,
     }))
 
     // Dynamic blog posts
