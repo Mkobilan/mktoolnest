@@ -185,45 +185,109 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                 </div>
             </section>
 
-            {/* Posts Grid */}
-            <section className="py-12 px-4">
+            {/* Posts Content */}
+            <section className="py-12 px-4 bg-[#020617]">
                 <div className="container max-w-7xl">
                     {posts && posts.length > 0 ? (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {posts.map((post, index) => (
-                                <Link href={`/blog/${post.slug}`} key={post.id}>
-                                    <article className={`card h-full group cursor-pointer ${config.cardClass}`} style={{ animationDelay: `${index * 50}ms` }}>
-                                        {/* Image */}
-                                        {post.image_url && (
-                                            <div className="aspect-[16/10] overflow-hidden">
-                                                <img
-                                                    src={post.image_url}
-                                                    alt={post.title}
-                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                />
+                        <div className="space-y-12">
+                            {/* Featured Post */}
+                            <Link href={`/blog/${posts[0].slug}`}>
+                                <article className="group cursor-pointer bg-[#1e293b]/50 border border-slate-800/60 rounded-3xl overflow-hidden hover:bg-[#1e293b]/80 transition-all duration-500 shadow-2xl flex flex-col lg:flex-row h-full">
+                                    {/* Image Section */}
+                                    {posts[0].image_url && (
+                                        <div className="lg:w-1/2 h-[300px] lg:h-auto overflow-hidden">
+                                            <img
+                                                src={posts[0].image_url}
+                                                alt={posts[0].title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                            />
+                                        </div>
+                                    )}
+                                    {/* Content Section */}
+                                    <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <span className="px-3 py-1 bg-orange-600/20 text-orange-500 text-[10px] font-black uppercase tracking-widest rounded-md border border-orange-500/20">
+                                                {posts[0].category || 'FEATURED'}
+                                            </span>
+                                            <span className="text-slate-500 font-bold text-xs uppercase tracking-widest flex items-center gap-2">
+                                                <div className="w-1 h-1 rounded-full bg-slate-600" />
+                                                {new Date(posts[0].created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase()}
+                                            </span>
+                                        </div>
+                                        <h2 className="text-3xl lg:text-5xl font-black text-white mb-6 leading-[1.1] transition-colors group-hover:text-white/90">
+                                            {posts[0].title}
+                                        </h2>
+                                        <p className="text-slate-400 text-lg mb-10 line-clamp-3 leading-relaxed font-medium">
+                                            {posts[0].excerpt}
+                                        </p>
+                                        <div className="flex items-center justify-between mt-auto">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400">
+                                                    <Search size={20} />
+                                                </div>
+                                                <div>
+                                                    <div className="text-white font-bold text-sm">Matthew Kobilan</div>
+                                                    <div className="text-slate-500 text-xs font-semibold">Editorial Team</div>
+                                                </div>
                                             </div>
-                                        )}
-
-                                        {/* Content */}
-                                        <div className="p-6">
-                                            <div className={`flex items-center gap-2 text-xs font-medium mb-3 ${config.textColor}`}>
-                                                <Calendar size={14} />
-                                                <time>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
-                                            </div>
-                                            <h3 className={`text-xl font-bold mb-3 ${config.textColor} group-hover:brightness-110 transition-all leading-tight`}>
-                                                {post.title}
-                                            </h3>
-                                            <p className="text-gray-400 text-sm mb-4 line-clamp-3 leading-relaxed">
-                                                {post.excerpt}
-                                            </p>
-                                            <div className={`flex items-center ${config.textColor} text-sm font-semibold group-hover:gap-3 transition-all`}>
-                                                <span>Read Article</span>
-                                                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                                            <div className="flex items-center gap-2 text-orange-500 text-[10px] font-black uppercase tracking-[0.2em]">
+                                                <span>READ STORY</span>
+                                                <ArrowRight size={14} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />
                                             </div>
                                         </div>
-                                    </article>
-                                </Link>
-                            ))}
+                                    </div>
+                                </article>
+                            </Link>
+
+                            {/* Remaining Posts Grid */}
+                            {posts.length > 1 && (
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    {posts.slice(1).map((post, index) => (
+                                        <Link href={`/blog/${post.slug}`} key={post.id}>
+                                            <article
+                                                className="group cursor-pointer bg-[#0f172a] border border-slate-800/40 rounded-3xl overflow-hidden hover:bg-[#1e293b]/40 transition-all duration-500 flex flex-col h-full shadow-lg"
+                                                style={{ animationDelay: `${index * 50}ms` }}
+                                            >
+                                                {/* Image */}
+                                                {post.image_url && (
+                                                    <div className="aspect-[16/10] overflow-hidden">
+                                                        <img
+                                                            src={post.image_url}
+                                                            alt={post.title}
+                                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                                        />
+                                                    </div>
+                                                )}
+
+                                                {/* Content */}
+                                                <div className="p-8 flex flex-col flex-1">
+                                                    <div className="flex items-center gap-2 mb-4">
+                                                        <span className="text-orange-500 text-[10px] font-black uppercase tracking-widest">
+                                                            {post.category || 'ARTICLE'}
+                                                        </span>
+                                                    </div>
+                                                    <h3 className="text-2xl font-black text-white mb-4 leading-tight group-hover:text-white/90">
+                                                        {post.title}
+                                                    </h3>
+                                                    <p className="text-slate-500 text-sm mb-8 line-clamp-3 leading-relaxed font-medium">
+                                                        {post.excerpt}
+                                                    </p>
+
+                                                    <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-800/50">
+                                                        <div className="flex items-center gap-2 text-slate-500 text-[10px] font-bold">
+                                                            <Calendar size={12} strokeWidth={3} />
+                                                            {new Date(post.created_at).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' })}
+                                                        </div>
+                                                        <div className="w-8 h-8 rounded-full bg-slate-800/50 flex items-center justify-center text-slate-500 group-hover:bg-slate-700 group-hover:text-white transition-all">
+                                                            <ArrowRight size={14} strokeWidth={3} className="group-hover:translate-x-0.5 transition-transform" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     ) : (
                         <div className="card p-20 text-center">

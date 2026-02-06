@@ -30,6 +30,7 @@ function PostEditorContent() {
         published: true,
         image_url: "",
         external_link: "",
+        category: "GENERAL",
     });
 
     const [loading, setLoading] = useState(false);
@@ -60,6 +61,7 @@ function PostEditorContent() {
                 published: data.published,
                 image_url: data.image_url || "",
                 external_link: data.external_link || "",
+                category: data.category || "GENERAL",
             });
             setIsEditing(true);
         }
@@ -79,6 +81,7 @@ function PostEditorContent() {
             published: formData.published,
             image_url: formData.image_url,
             external_link: formData.external_link || null,
+            category: formData.category,
         };
 
         if (isEditing && postId) {
@@ -198,8 +201,8 @@ function PostEditorContent() {
                                 type="button"
                                 onClick={() => setViewMode('edit')}
                                 className={`px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-all ${viewMode === 'edit'
-                                        ? 'bg-blue-600 text-white'
-                                        : 'text-gray-400 hover:text-white'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'text-gray-400 hover:text-white'
                                     }`}
                             >
                                 <Edit3 size={14} />
@@ -209,8 +212,8 @@ function PostEditorContent() {
                                 type="button"
                                 onClick={() => setViewMode('split')}
                                 className={`px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-all ${viewMode === 'split'
-                                        ? 'bg-blue-600 text-white'
-                                        : 'text-gray-400 hover:text-white'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'text-gray-400 hover:text-white'
                                     }`}
                             >
                                 <Columns size={14} />
@@ -220,8 +223,8 @@ function PostEditorContent() {
                                 type="button"
                                 onClick={() => setViewMode('preview')}
                                 className={`px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-all ${viewMode === 'preview'
-                                        ? 'bg-blue-600 text-white'
-                                        : 'text-gray-400 hover:text-white'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'text-gray-400 hover:text-white'
                                     }`}
                             >
                                 <Eye size={14} />
@@ -267,8 +270,8 @@ function PostEditorContent() {
                                 />
                             </div>
 
-                            {/* Slug, Category, Status Row */}
-                            <div className="grid grid-cols-3 gap-4">
+                            {/* Slug, Application, Category, Status Row */}
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div>
                                     <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Slug</label>
                                     <input
@@ -276,12 +279,12 @@ function PostEditorContent() {
                                         value={formData.slug}
                                         onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                                         placeholder="article-slug"
-                                        className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-slate-700"
+                                        className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-slate-700 font-mono text-sm"
                                         required
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Category</label>
+                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Application</label>
                                     <select
                                         value={formData.topic}
                                         onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
@@ -294,6 +297,16 @@ function PostEditorContent() {
                                         <option value="daylabor">Day Labor</option>
                                         <option value="raidmemegen">Raid Generator</option>
                                     </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Category</label>
+                                    <input
+                                        type="text"
+                                        value={formData.category}
+                                        onChange={(e) => setFormData({ ...formData, category: e.target.value.toUpperCase() })}
+                                        placeholder="TIPS, STRATEGIES, etc."
+                                        className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-slate-700 font-bold text-sm tracking-widest"
+                                    />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Status</label>

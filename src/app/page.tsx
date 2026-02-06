@@ -4,12 +4,28 @@ import { createClient } from "@/utils/supabase/server";
 
 export default async function Home() {
   const supabase = await createClient();
-  const { data: heroSetting } = await supabase
+
+  // Fetch specific hero settings for home and all topics
+  const { data: heroSettings } = await supabase
     .from("site_settings")
-    .select("setting_value")
-    .eq("setting_key", "hero_home")
-    .single();
-  const heroImageUrl = heroSetting?.setting_value || null;
+    .select("setting_key, setting_value")
+    .in("setting_key", [
+      "hero_home",
+      "hero_hubplate",
+      "hero_hangroom",
+      "hero_baybolt",
+      "hero_hugloom",
+      "hero_raidmemegen",
+      "hero_daylabor"
+    ]);
+
+  // Create a map for easy lookup
+  const heroMap: Record<string, string> = {};
+  heroSettings?.forEach(setting => {
+    heroMap[setting.setting_key] = setting.setting_value;
+  });
+
+  const heroImageUrl = heroMap["hero_home"] || null;
 
   const topics = [
     {
@@ -20,6 +36,7 @@ export default async function Home() {
       icon: Utensils,
       gradient: "from-red-600 via-orange-500 to-red-600",
       iconColor: "text-red-500",
+      heroKey: "hero_hubplate"
     },
     {
       id: "hangroom",
@@ -29,6 +46,7 @@ export default async function Home() {
       icon: Users,
       gradient: "from-pink-500 via-fuchsia-500 to-purple-600",
       iconColor: "text-pink-500",
+      heroKey: "hero_hangroom"
     },
     {
       id: "baybolt",
@@ -38,6 +56,7 @@ export default async function Home() {
       icon: Wrench,
       gradient: "from-orange-500 via-orange-600 to-blue-900",
       iconColor: "text-orange-500",
+      heroKey: "hero_baybolt"
     },
     {
       id: "hugloom",
@@ -47,6 +66,7 @@ export default async function Home() {
       icon: Heart,
       gradient: "from-pink-400 via-rose-400 to-red-400",
       iconColor: "text-pink-400",
+      heroKey: "hero_hugloom"
     },
     {
       id: "raidmemegen",
@@ -56,6 +76,7 @@ export default async function Home() {
       icon: Gamepad2,
       gradient: "from-[#00FF41] via-[#008F11] to-[#003B00]",
       iconColor: "text-[#00FF41]",
+      heroKey: "hero_raidmemegen"
     },
     {
       id: "daylabor",
@@ -65,6 +86,7 @@ export default async function Home() {
       icon: Hammer,
       gradient: "from-purple-500 via-fuchsia-500 to-pink-500",
       iconColor: "text-purple-500",
+      heroKey: "hero_daylabor"
     },
   ];
 
@@ -107,11 +129,26 @@ export default async function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-[32px] max-w-7xl mx-auto">
             {topics.map((topic, index) => {
               const Icon = topic.icon;
+              const cardHero = heroMap[topic.heroKey as keyof typeof heroMap];
+
               return (
                 <Link href={`/${topic.id}`} key={topic.id}>
-                  <div className={`card p-8 h-full group cursor-pointer flex flex-col items-center text-center ${topic.id === 'hubplate' ? 'hubplate-card' : topic.id === 'baybolt' ? 'baybolt-card' : topic.id === 'hugloom' ? 'hugloom-card' : topic.id === 'daylabor' ? 'daylabor-card' : topic.id === 'raidmemegen' ? 'raidmemegen-card' : topic.id === 'hangroom' ? 'hangroom-card' : ''}`} style={{ animationDelay: `${index * 100}ms` }}>
+                  <div className={`card p-8 h-full group cursor-pointer flex flex-col items-center text-center relative overflow-hidden ${topic.id === 'hubplate' ? 'hubplate-card' : topic.id === 'baybolt' ? 'baybolt-card' : topic.id === 'hugloom' ? 'hugloom-card' : topic.id === 'daylabor' ? 'daylabor-card' : topic.id === 'raidmemegen' ? 'raidmemegen-card' : topic.id === 'hangroom' ? 'hangroom-card' : ''}`} style={{ animationDelay: `${index * 100}ms` }}>
+
+                    {/* Card Hero Background */}
+                    {cardHero && (
+                      <div className="absolute inset-0 z-0">
+                        <img
+                          src={cardHero}
+                          alt={`${topic.title} Background`}
+                          className="w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity duration-500 group-hover:scale-105 transform shadow-2xl"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/80 to-black/60"></div>
+                      </div>
+                    )}
+
                     {/* Icon with Gradient Background */}
-                    <div className="relative mb-6">
+                    <div className="relative mb-6 z-10">
                       <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-2xl`}>
                         <Icon className="text-white" size={36} strokeWidth={2.5} />
                       </div>
@@ -119,17 +156,17 @@ export default async function Home() {
                     </div>
 
                     {/* Content */}
-                    <div className="mb-4">
+                    <div className="mb-4 relative z-10">
                       <h2 className={`text-2xl font-bold mb-1 ${topic.id === 'hubplate' ? 'text-red-500' : topic.id === 'baybolt' ? 'text-orange-500' : topic.id === 'raidmemegen' ? 'text-[#00FF41]' : 'text-white'}`}>{topic.title}</h2>
                       <p className={`text-sm font-medium ${topic.id === 'hubplate' ? 'text-red-400' : topic.id === 'baybolt' ? 'text-orange-400' : topic.id === 'raidmemegen' ? 'text-[#00FF41]' : 'text-gray-500'}`}>{topic.subtitle}</p>
                     </div>
 
-                    <p className={`mb-6 leading-relaxed ${topic.id === 'hubplate' ? 'text-red-300/90' : topic.id === 'baybolt' ? 'text-orange-300/90' : topic.id === 'raidmemegen' ? 'text-[#00FF41]/80' : 'text-gray-400'}`}>
+                    <p className={`mb-6 leading-relaxed relative z-10 ${topic.id === 'hubplate' ? 'text-red-300/90' : topic.id === 'baybolt' ? 'text-orange-300/90' : topic.id === 'raidmemegen' ? 'text-[#00FF41]/80' : 'text-gray-400'}`}>
                       {topic.description}
                     </p>
 
                     {/* CTA */}
-                    <div className={`flex items-center justify-center ${topic.iconColor} font-semibold text-sm group-hover:gap-3 transition-all duration-300`}>
+                    <div className={`relative z-10 flex items-center justify-center ${topic.iconColor} font-semibold text-sm group-hover:gap-3 transition-all duration-300`}>
                       <span>Explore Articles</span>
                       <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                     </div>
