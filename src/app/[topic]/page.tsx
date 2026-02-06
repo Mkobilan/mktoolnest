@@ -129,7 +129,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
     const heroImageUrl = heroSetting?.setting_value || null;
 
     return (
-        <div className="min-h-screen bg-[#0a1128] text-white selection:bg-orange-500/30">
+        <div className="min-h-screen bg-[#0a0a0f] text-white selection:bg-orange-500/30">
             {/* Hero Section - Immersive and Clean */}
             <section className="relative h-[450px] overflow-hidden">
                 {heroImageUrl && (
@@ -137,12 +137,12 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                         <img
                             src={heroImageUrl}
                             alt={`${config.title} Hero`}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover opacity-40 shadow-2xl"
                         />
-                        <div className="absolute inset-0 bg-[#0a1128]/40 backdrop-blur-[2px]"></div>
+                        <div className="absolute inset-0 bg-[#0a0a0f]/60 backdrop-blur-[1px]"></div>
                     </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1128] via-[#0a1128]/40 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent"></div>
 
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto">
                     <h1 className="text-6xl md:text-8xl font-black mb-4 tracking-tighter leading-none">
@@ -152,7 +152,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                         </span>
                     </h1>
                     <h2 className="text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">BLOG</h2>
-                    <p className="text-slate-300 text-xl font-medium leading-relaxed opacity-90">
+                    <p className="text-slate-400 text-xl font-medium leading-relaxed opacity-90">
                         Expert insights, professional tools, and stories from the {config.title} community.
                     </p>
                 </div>
@@ -182,14 +182,14 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
             </section>
 
             {/* Posts Content */}
-            <section className="pb-32 px-4">
+            <section className="pb-32 px-4 relative z-10">
                 <div className="container max-w-7xl mx-auto">
                     {posts && posts.length > 0 ? (
-                        <div className="flex flex-col gap-20">
+                        <div className="flex flex-col gap-24">
                             {/* Featured Post Card */}
                             <Link href={`/blog/${posts[0].slug}`}>
-                                <article className="group cursor-pointer bg-[#020617] rounded-[2.5rem] overflow-hidden transition-all duration-700 hover:bg-[#020617]/80 border border-white/5 shadow-2xl flex flex-col lg:flex-row">
-                                    {/* Image (Controlled Size) */}
+                                <article className={`card ${config.cardClass} group cursor-pointer overflow-hidden flex flex-col lg:flex-row min-h-[550px]`}>
+                                    {/* Image (Strictly Controlled Size) */}
                                     {posts[0].image_url && (
                                         <div className="lg:w-[45%] relative aspect-video lg:aspect-auto overflow-hidden">
                                             <img
@@ -199,7 +199,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                             />
                                         </div>
                                     )}
-                                    {/* Content (High Padding) */}
+                                    {/* Content (generous padding) */}
                                     <div className="lg:w-[55%] p-10 lg:p-20 flex flex-col justify-center">
                                         <div className="flex items-center gap-4 mb-8">
                                             <span className={`${config.textColor} text-xs font-black uppercase tracking-[0.25em]`}>
@@ -210,13 +210,13 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                                 {new Date(posts[0].created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase()}
                                             </span>
                                         </div>
-                                        <h2 className="text-4xl lg:text-7xl font-black text-white mb-8 leading-[1] tracking-tighter group-hover:text-white/90 transition-colors">
+                                        <h2 className="text-4xl lg:text-7xl font-black text-white mb-8 leading-[1.05] tracking-tighter group-hover:translate-x-1 transition-transform duration-500">
                                             {posts[0].title}
                                         </h2>
                                         <p className="text-slate-400 text-lg lg:text-xl mb-12 line-clamp-3 leading-relaxed font-medium">
                                             {posts[0].excerpt}
                                         </p>
-                                        <div className="flex items-center justify-between mt-4">
+                                        <div className="flex items-center justify-between mt-auto">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400 group-hover:bg-white/10 transition-colors">
                                                     <Search size={22} />
@@ -226,7 +226,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                                     <div className="text-slate-500 text-xs font-semibold tracking-wider">Editorial Team</div>
                                                 </div>
                                             </div>
-                                            <div className={`flex items-center gap-3 ${config.textColor} text-xs font-black uppercase tracking-[0.3em] group-hover:translate-x-2 transition-transform duration-500`}>
+                                            <div className={`flex items-center gap-3 ${config.textColor} text-xs font-black uppercase tracking-[0.3em] group-hover:translate-x-2 transition-all duration-500`}>
                                                 <span>READ STORY</span>
                                                 <ArrowRight size={18} strokeWidth={3} />
                                             </div>
@@ -235,13 +235,13 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                 </article>
                             </Link>
 
-                            {/* Remaining Posts Grid (Clear Separation) */}
+                            {/* Remaining Posts Grid (Massive Gap for separation) */}
                             {posts.length > 1 && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
                                     {posts.slice(1).map((post, index) => (
                                         <Link href={`/blog/${post.slug}`} key={post.id}>
                                             <article
-                                                className="group cursor-pointer bg-[#020617] rounded-[2rem] overflow-hidden transition-all duration-500 hover:bg-[#020617]/80 border border-white/5 flex flex-col h-full shadow-lg"
+                                                className={`card ${config.cardClass} group cursor-pointer flex flex-col h-full`}
                                                 style={{ animationDelay: `${index * 50}ms` }}
                                             >
                                                 {/* Image */}
@@ -250,7 +250,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                                         <img
                                                             src={post.image_url}
                                                             alt={post.title}
-                                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 shadow-xl"
                                                         />
                                                     </div>
                                                 )}
@@ -266,7 +266,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                                             {new Date(post.created_at).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' })}
                                                         </span>
                                                     </div>
-                                                    <h3 className="text-2xl lg:text-3xl font-black text-white mb-6 leading-[1.15] tracking-tight group-hover:text-white/90">
+                                                    <h3 className="text-2xl lg:text-3xl font-black text-white mb-6 leading-[1.15] tracking-tight group-hover:translate-x-1 transition-transform">
                                                         {post.title}
                                                     </h3>
                                                     <p className="text-slate-400 text-base mb-12 line-clamp-3 leading-relaxed">
@@ -280,7 +280,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                                             </div>
                                                             <span className="text-slate-500 text-[10px] font-bold tracking-wider">MATTHEW K.</span>
                                                         </div>
-                                                        <div className={`w-12 h-12 rounded-full bg-white/5 border border-white/5 flex items-center justify-center ${config.textColor} group-hover:bg-${config.textColor}/10 group-hover:scale-110 transition-all shadow-sm`}>
+                                                        <div className={`w-12 h-12 rounded-full bg-white/5 border border-white/5 flex items-center justify-center ${config.textColor} group-hover:bg-white group-hover:text-black group-hover:scale-110 transition-all shadow-sm`}>
                                                             <ArrowRight size={22} strokeWidth={2.5} />
                                                         </div>
                                                     </div>
