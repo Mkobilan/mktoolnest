@@ -95,6 +95,12 @@ export default function AdminDashboard() {
                     </div>
                     <div className="flex items-center gap-4">
                         <button
+                            onClick={() => router.push("/admin/settings")}
+                            className="btn btn-outline flex items-center gap-2"
+                        >
+                            Hero Settings
+                        </button>
+                        <button
                             onClick={() => router.push("/admin/post")}
                             className="btn btn-primary flex items-center gap-2"
                         >
@@ -121,9 +127,11 @@ export default function AdminDashboard() {
                         >
                             <option value="all">All Topics</option>
                             <option value="hubplate">HubPlate</option>
+                            <option value="hangroom">Hangroom</option>
                             <option value="baybolt">Baybolt</option>
                             <option value="hugloom">HugLoom</option>
                             <option value="daylabor">Day Labor</option>
+                            <option value="raidmemegen">Raid Generator</option>
                         </select>
                         <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-primary pointer-events-none" size={18} />
                     </div>

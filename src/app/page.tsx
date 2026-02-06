@@ -13,6 +13,15 @@ export default function Home() {
       iconColor: "text-red-500",
     },
     {
+      id: "hangroom",
+      title: "Hangroom",
+      subtitle: "For Creators",
+      description: "Stop asking for algorithm permission. Own your brand, audience, and revenue with the ultimate content creator platform.",
+      icon: Users,
+      gradient: "from-pink-500 via-fuchsia-500 to-purple-600",
+      iconColor: "text-pink-500",
+    },
+    {
       id: "baybolt",
       title: "Baybolt",
       subtitle: "For Mechanics",
@@ -29,15 +38,6 @@ export default function Home() {
       icon: Heart,
       gradient: "from-pink-400 via-rose-400 to-red-400",
       iconColor: "text-pink-400",
-    },
-    {
-      id: "hangroom",
-      title: "Hangroom",
-      subtitle: "For Creators",
-      description: "Stop asking for algorithm permission. Own your brand, audience, and revenue with the ultimate content creator platform.",
-      icon: Users,
-      gradient: "from-violet-500 via-purple-500 to-indigo-500",
-      iconColor: "text-violet-500",
     },
     {
       id: "raidmemegen",
@@ -88,7 +88,7 @@ export default function Home() {
               const Icon = topic.icon;
               return (
                 <Link href={`/${topic.id}`} key={topic.id}>
-                  <div className={`card p-8 h-full group cursor-pointer flex flex-col items-center text-center ${topic.id === 'hubplate' ? 'hubplate-card' : topic.id === 'baybolt' ? 'baybolt-card' : topic.id === 'hugloom' ? 'hugloom-card' : topic.id === 'daylabor' ? 'daylabor-card' : topic.id === 'raidmemegen' ? 'raidmemegen-card' : ''}`} style={{ animationDelay: `${index * 100}ms` }}>
+                  <div className={`card p-8 h-full group cursor-pointer flex flex-col items-center text-center ${topic.id === 'hubplate' ? 'hubplate-card' : topic.id === 'baybolt' ? 'baybolt-card' : topic.id === 'hugloom' ? 'hugloom-card' : topic.id === 'daylabor' ? 'daylabor-card' : topic.id === 'raidmemegen' ? 'raidmemegen-card' : topic.id === 'hangroom' ? 'hangroom-card' : ''}`} style={{ animationDelay: `${index * 100}ms` }}>
                     {/* Icon with Gradient Background */}
                     <div className="relative mb-6">
                       <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-2xl`}>

@@ -101,8 +101,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         },
         hangroom: {
             name: "Hangroom",
-            gradient: "from-violet-500 via-purple-500 to-indigo-500",
-            textColor: "text-violet-500"
+            gradient: "from-pink-500 via-fuchsia-500 to-purple-600",
+            textColor: "text-pink-500"
         },
     };
 
