@@ -281,6 +281,31 @@ a {
   color: #00FF41 !important;
 }
 
+/* Hangroom Card Custom Hover */
+.hangroom-card:hover {
+  border-color: rgba(236, 72, 153, 0.6);
+  box-shadow: 0 0 30px rgba(236, 72, 153, 0.4), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.hangroom-card:hover::before {
+  background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.5), transparent);
+}
+
+/* Hangroom Card Text Colors */
+.hangroom-card h2,
+.hangroom-card h3 {
+  color: #ec4899 !important;
+}
+
+.hangroom-card p {
+  color: #f9a8d4 !important;
+}
+
+.hangroom-card .text-sm,
+.hangroom-card .text-xs {
+  color: #f472b6 !important;
+}
+
 /* Built For Professionals Card Custom Hover */
 .built-for-pros-card:hover {
   border-color: rgba(99, 102, 241, 0.6);

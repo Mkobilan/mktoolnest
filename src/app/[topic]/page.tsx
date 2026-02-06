@@ -10,6 +10,7 @@ const topicConfig = {
         gradient: "from-orange-500 via-orange-600 to-blue-900",
         textColor: "text-orange-500",
         bgColor: "bg-orange-500",
+        cardClass: "baybolt-card",
     },
     hugloom: {
         title: "HugLoom",
@@ -17,6 +18,7 @@ const topicConfig = {
         gradient: "from-pink-400 via-rose-400 to-red-400",
         textColor: "text-pink-400",
         bgColor: "bg-pink-400",
+        cardClass: "hugloom-card",
     },
     daylabor: {
         title: "Day Labor on Demand",
@@ -24,6 +26,7 @@ const topicConfig = {
         gradient: "from-purple-500 via-fuchsia-500 to-pink-500",
         textColor: "text-purple-500",
         bgColor: "bg-purple-500",
+        cardClass: "daylabor-card",
     },
     raidmemegen: {
         title: "Raid Generator",
@@ -31,6 +34,7 @@ const topicConfig = {
         gradient: "from-[#00FF41] via-[#008F11] to-[#003B00]",
         textColor: "text-[#00FF41]",
         bgColor: "bg-[#00FF41]",
+        cardClass: "raidmemegen-card",
     },
     hubplate: {
         title: "HubPlate",
@@ -38,6 +42,7 @@ const topicConfig = {
         gradient: "from-red-600 via-orange-500 to-red-600",
         textColor: "text-red-500",
         bgColor: "bg-red-500",
+        cardClass: "hubplate-card",
     },
     hangroom: {
         title: "Hangroom",
@@ -45,6 +50,7 @@ const topicConfig = {
         gradient: "from-pink-500 via-fuchsia-500 to-purple-600",
         textColor: "text-pink-500",
         bgColor: "bg-pink-500",
+        cardClass: "hangroom-card",
     },
 };
 
@@ -104,6 +110,8 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
     const config = topicConfig[topic as keyof typeof topicConfig];
 
     const supabase = await createClient();
+
+    // Fetch posts
     const { data: posts } = await supabase
         .from("posts")
         .select("*")
@@ -111,16 +119,30 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
         .eq("published", true)
         .order("created_at", { ascending: false });
 
-    const featuredPost = posts && posts.length > 0 ? posts[0] : null;
-    const remainingPosts = posts && posts.length > 1 ? posts.slice(1) : [];
+    // Fetch hero image from site_settings
+    const { data: heroSetting } = await supabase
+        .from("site_settings")
+        .select("setting_value")
+        .eq("setting_key", `hero_${topic}`)
+        .single();
+
+    const heroImageUrl = heroSetting?.setting_value || null;
 
     return (
         <div className="min-h-screen">
-            {/* Hero Section with Background */}
+            {/* Hero Section */}
             <section className="relative h-[400px] overflow-hidden">
-                {/* Background gradient overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-20`}></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent"></div>
+                {/* Background Image */}
+                {heroImageUrl && (
+                    <img
+                        src={heroImageUrl}
+                        alt={`${config.title} Hero`}
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+                )}
+                {/* Gradient Overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} ${heroImageUrl ? 'opacity-60' : 'opacity-30'}`}></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent"></div>
 
                 {/* Content */}
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
@@ -162,103 +184,47 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                 </div>
             </section>
 
-            {/* Main Content */}
+            {/* Posts Grid */}
             <section className="py-12 px-4">
                 <div className="container max-w-7xl">
-                    {/* Featured Post */}
-                    {featuredPost ? (
-                        <Link href={`/blog/${featuredPost.slug}`} className="block mb-12">
-                            <article className="grid md:grid-cols-2 gap-8 items-center group">
-                                {/* Image */}
-                                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-800">
-                                    {featuredPost.image_url ? (
-                                        <img
-                                            src={featuredPost.image_url}
-                                            alt={featuredPost.title}
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                    ) : (
-                                        <div className={`w-full h-full bg-gradient-to-br ${config.gradient} opacity-30`}></div>
-                                    )}
-                                    <div className={`absolute top-4 left-4 px-3 py-1 ${config.bgColor} text-white text-xs font-bold rounded`}>
-                                        FEATURED
-                                    </div>
-                                </div>
-
-                                {/* Content */}
-                                <div>
-                                    <div className={`flex items-center gap-2 text-sm ${config.textColor} mb-4`}>
-                                        <span className="uppercase font-bold">General</span>
-                                        <span className="text-gray-500">•</span>
-                                        <span className="text-gray-500 flex items-center gap-1">
-                                            <Calendar size={14} />
-                                            {new Date(featuredPost.created_at).toLocaleDateString('en-US', {
-                                                month: 'numeric',
-                                                day: 'numeric',
-                                                year: 'numeric'
-                                            })}
-                                        </span>
-                                    </div>
-                                    <h3 className="text-3xl md:text-4xl font-black text-white mb-4 group-hover:text-gray-200 transition-colors">
-                                        {featuredPost.title}
-                                    </h3>
-                                    <p className="text-gray-400 text-lg leading-relaxed mb-6 line-clamp-3">
-                                        {featuredPost.excerpt}
-                                    </p>
-                                    <div className={`flex items-center gap-2 ${config.textColor} font-bold text-sm uppercase`}>
-                                        <span>Read Full Story</span>
-                                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </div>
-                            </article>
-                        </Link>
-                    ) : null}
-
-                    {/* Remaining Posts Grid */}
-                    {remainingPosts.length > 0 ? (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {remainingPosts.map((post, index) => (
+                    {posts && posts.length > 0 ? (
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {posts.map((post, index) => (
                                 <Link href={`/blog/${post.slug}`} key={post.id}>
-                                    <article className="group">
+                                    <article className={`card h-full group cursor-pointer ${config.cardClass}`} style={{ animationDelay: `${index * 50}ms` }}>
                                         {/* Image */}
-                                        <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-800 mb-4">
-                                            {post.image_url ? (
+                                        {post.image_url && (
+                                            <div className="aspect-[16/10] overflow-hidden">
                                                 <img
                                                     src={post.image_url}
                                                     alt={post.title}
                                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                 />
-                                            ) : (
-                                                <div className={`w-full h-full bg-gradient-to-br ${config.gradient} opacity-20`}></div>
-                                            )}
-                                        </div>
+                                            </div>
+                                        )}
 
                                         {/* Content */}
-                                        <div className={`flex items-center gap-2 text-xs ${config.textColor} mb-2`}>
-                                            <span className="uppercase font-bold">General</span>
-                                            <span className="text-gray-500">•</span>
-                                            <span className="text-gray-500">
-                                                {new Date(post.created_at).toLocaleDateString('en-US', {
-                                                    month: 'numeric',
-                                                    day: 'numeric',
-                                                    year: 'numeric'
-                                                })}
-                                            </span>
+                                        <div className="p-6">
+                                            <div className={`flex items-center gap-2 text-xs font-medium mb-3 ${config.textColor}`}>
+                                                <Calendar size={14} />
+                                                <time>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+                                            </div>
+                                            <h3 className={`text-xl font-bold mb-3 ${config.textColor} group-hover:brightness-110 transition-all leading-tight`}>
+                                                {post.title}
+                                            </h3>
+                                            <p className="text-gray-400 text-sm mb-4 line-clamp-3 leading-relaxed">
+                                                {post.excerpt}
+                                            </p>
+                                            <div className={`flex items-center ${config.textColor} text-sm font-semibold group-hover:gap-3 transition-all`}>
+                                                <span>Read Article</span>
+                                                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                                            </div>
                                         </div>
-                                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-gray-200 transition-colors line-clamp-2">
-                                            {post.title}
-                                        </h3>
-                                        <p className="text-gray-400 text-sm line-clamp-2">
-                                            {post.excerpt}
-                                        </p>
                                     </article>
                                 </Link>
                             ))}
                         </div>
-                    ) : null}
-
-                    {/* Empty State */}
-                    {(!posts || posts.length === 0) && (
+                    ) : (
                         <div className="card p-20 text-center">
                             <div className="text-6xl mb-4">📝</div>
                             <h3 className="text-2xl font-bold mb-3">No Articles Yet</h3>
