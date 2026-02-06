@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Wrench, Heart, Hammer, ArrowRight, Gamepad2, Utensils } from "lucide-react";
+import { Wrench, Heart, Hammer, ArrowRight, Gamepad2, Utensils, Users } from "lucide-react";
 
 export default function Home() {
   const topics = [
@@ -29,6 +29,15 @@ export default function Home() {
       icon: Heart,
       gradient: "from-pink-400 via-rose-400 to-red-400",
       iconColor: "text-pink-400",
+    },
+    {
+      id: "hangroom",
+      title: "Hangroom",
+      subtitle: "For Creators",
+      description: "Stop asking for algorithm permission. Own your brand, audience, and revenue with the ultimate content creator platform.",
+      icon: Users,
+      gradient: "from-violet-500 via-purple-500 to-indigo-500",
+      iconColor: "text-violet-500",
     },
     {
       id: "raidmemegen",

@@ -99,6 +99,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             gradient: "from-red-600 via-orange-500 to-red-600",
             textColor: "text-red-500"
         },
+        hangroom: {
+            name: "Hangroom",
+            gradient: "from-violet-500 via-purple-500 to-indigo-500",
+            textColor: "text-violet-500"
+        },
     };
 
     const config = topicConfig[post.topic as keyof typeof topicConfig];

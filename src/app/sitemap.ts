@@ -5,7 +5,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://mktoolnest.vercel.app'
 
     // Topic routes
-    const topics = ['baybolt', 'hugloom', 'daylabor', 'raidmemegen', 'hubplate']
+    const topics = ['baybolt', 'hugloom', 'daylabor', 'raidmemegen', 'hubplate', 'hangroom']
     const topicRoutes = topics.map(topic => ({
         url: `${baseUrl}/${topic}`,
         lastModified: new Date(),
