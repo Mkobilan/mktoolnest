@@ -148,37 +148,38 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
                     <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-4">
                         <span className="text-white">THE </span>
-                        <span className={`bg-gradient-to-r ${config.gradient} bg-clip-text text-transparent`}>
+                        {/* Changed from gradient text to solid color for better visibility */}
+                        <span className={config.textColor}>
                             {config.title.toUpperCase()}
                         </span>
                     </h1>
                     <h2 className="text-4xl md:text-5xl font-black text-white mb-6">BLOG</h2>
-                    <p className="text-gray-400 text-lg max-w-xl">
+                    <p className="text-gray-300 text-lg max-w-xl font-medium">
                         Insights, updates, and stories from the {config.title} community.
                     </p>
                 </div>
             </section>
 
             {/* Filters & Search */}
-            <section className="py-8 px-4 border-b border-white/10">
-                <div className="container max-w-7xl flex flex-wrap items-center justify-between gap-4">
+            <section className="py-8 px-4 border-b border-white/10 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-40 transition-all">
+                <div className="container max-w-7xl flex flex-col md:flex-row items-center justify-between gap-6">
                     {/* Filter Pills */}
-                    <div className="flex items-center gap-2">
-                        <button className={`px-4 py-2 rounded-full text-sm font-medium ${config.bgColor} text-white`}>
-                            All
+                    <div className="flex items-center gap-3">
+                        <button className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wide shadow-lg hover:scale-105 active:scale-95 transition-all ${config.bgColor} text-white`}>
+                            ALL
                         </button>
-                        <button className="px-4 py-2 rounded-full text-sm font-medium bg-slate-800 text-gray-300 hover:bg-slate-700 transition-colors">
-                            General
+                        <button className="px-6 py-2.5 rounded-full text-sm font-semibold bg-slate-800 border border-slate-700 text-gray-300 hover:bg-slate-700 hover:text-white hover:border-slate-600 transition-all shadow-sm">
+                            GENERAL
                         </button>
                     </div>
 
                     {/* Search */}
-                    <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+                    <div className="relative w-full md:w-auto">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-white transition-colors" size={20} />
                         <input
                             type="text"
                             placeholder="Search articles..."
-                            className="pl-10 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-full text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-slate-600 w-64"
+                            className="w-full md:w-80 pl-12 pr-6 py-3 bg-slate-950/50 border border-slate-800 rounded-full text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-slate-700 focus:border-transparent focus:bg-slate-950 transition-all shadow-inner"
                         />
                     </div>
                 </div>

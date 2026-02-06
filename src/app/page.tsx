@@ -1,7 +1,16 @@
 import Link from "next/link";
 import { Wrench, Heart, Hammer, ArrowRight, Gamepad2, Utensils, Users } from "lucide-react";
+import { createClient } from "@/utils/supabase/server";
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient();
+  const { data: heroSetting } = await supabase
+    .from("site_settings")
+    .select("setting_value")
+    .eq("setting_key", "hero_home")
+    .single();
+  const heroImageUrl = heroSetting?.setting_value || null;
+
   const topics = [
     {
       id: "hubplate",
@@ -62,20 +71,32 @@ export default function Home() {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section className="pt-[32px] pb-8 px-8">
-        <div className="container text-center">
-          <h1 className="font-black mb-[32px] gradient-text text-4xl md:text-5xl">
+      <section className="relative pt-[32px] pb-8 px-8 overflow-hidden min-h-[500px] flex flex-col justify-center">
+        {/* Background Image */}
+        {heroImageUrl && (
+          <div className="absolute inset-0 z-0">
+            <img
+              src={heroImageUrl}
+              alt="MK Tool Nest Hero"
+              className="w-full h-full object-cover opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/80 to-transparent"></div>
+          </div>
+        )}
+
+        <div className="container text-center relative z-10">
+          <h1 className="font-black mb-[32px] gradient-text text-5xl md:text-7xl">
             Welcome to MK Tool Nest
           </h1>
 
           <div className="mb-[16px]">
-            <span className="text-xl font-medium text-gray-400">Your Professional Resource Hub</span>
+            <span className="text-2xl font-medium text-gray-300">Your Professional Resource Hub</span>
           </div>
 
           <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-[96px] leading-relaxed">
             Empowering professionals with <span className="text-white font-semibold">expert insights</span>,
             <span className="text-white font-semibold"> actionable tools</span>, and
-            <span className="text-white font-semibold"> industry knowledge</span> across four specialized fields.
+            <span className="text-white font-semibold"> industry knowledge</span> across five specialized fields.
           </p>
         </div>
       </section>
