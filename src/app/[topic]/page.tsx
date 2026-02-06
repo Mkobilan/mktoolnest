@@ -129,104 +129,107 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
     const heroImageUrl = heroSetting?.setting_value || null;
 
     return (
-        <div className="min-h-screen bg-[#0a0a0f] text-white selection:bg-orange-500/30">
-            {/* Hero Section - Immersive and Clean */}
-            <section className="relative h-[450px] overflow-hidden">
+        <div className="min-h-screen bg-[#0a0a0f] text-white selection:bg-orange-500/30 font-sans">
+            {/* Nuclear Confirmation Bar */}
+            <div className="bg-red-600 text-white text-center py-2 font-black uppercase text-[10px] tracking-[0.3em] z-[100] relative">
+                MK TOOL NEST BLOG REBOOT - STYLE FIX APPLIED
+            </div>
+
+            {/* Hero Section */}
+            <section className="relative h-[400px] lg:h-[450px] overflow-hidden">
                 {heroImageUrl && (
                     <div className="absolute inset-0">
                         <img
                             src={heroImageUrl}
                             alt={`${config.title} Hero`}
-                            className="w-full h-full object-cover opacity-40 shadow-2xl"
+                            className="w-full h-full object-cover opacity-50 shadow-2xl"
                         />
-                        <div className="absolute inset-0 bg-[#0a0a0f]/60 backdrop-blur-[1px]"></div>
+                        <div className="absolute inset-0 bg-[#0a0a0f]/60 backdrop-blur-[2px]"></div>
                     </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/40 to-transparent"></div>
 
-                <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto">
-                    <h1 className="text-6xl md:text-8xl font-black mb-4 tracking-tighter leading-none">
-                        <span className="text-white/20">THE </span>
+                <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto pt-20">
+                    <h1 className="text-6xl md:text-9xl font-black mb-4 tracking-tighter leading-none">
+                        <span className="text-white/10">THE </span>
                         <span className={config.textColor}>
                             {config.title.toUpperCase()}
                         </span>
                     </h1>
                     <h2 className="text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">BLOG</h2>
-                    <p className="text-slate-400 text-xl font-medium leading-relaxed opacity-90">
-                        Expert insights, professional tools, and stories from the {config.title} community.
-                    </p>
                 </div>
             </section>
 
-            {/* Filter Row - Clean and Minimal */}
-            <section className="py-12">
-                <div className="container max-w-7xl mx-auto px-4 flex flex-col items-center gap-10">
-                    <div className="flex items-center gap-8 border-b border-white/5 pb-4">
-                        <button className={`text-sm font-black tracking-[0.2em] ${config.textColor} relative after:absolute after:bottom-[-17px] after:left-0 after:right-0 after:h-[2px] after:${config.bgColor}`}>
+            {/* Filter Row */}
+            <section className="py-12 border-b border-white/5">
+                <div className="container max-w-7xl mx-auto px-4 flex flex-col items-center gap-12">
+                    <div className="flex items-center gap-10">
+                        <button className={`text-xs font-black tracking-[0.3em] pb-3 border-b-2 ${config.textColor} border-current`}>
                             ALL
                         </button>
-                        <button className="text-sm font-bold tracking-[0.2em] text-slate-500 hover:text-slate-200 transition-colors">
+                        <button className="text-xs font-bold tracking-[0.3em] pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-200 transition-colors">
                             GENERAL
                         </button>
                     </div>
 
-                    <div className="relative w-full max-w-2xl group">
+                    <div className="relative w-full max-w-2xl group pb-2 border-b border-white/10 focus-within:border-white/30 transition-colors">
                         <Search className="absolute left-0 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-white transition-colors" size={18} />
                         <input
                             type="text"
                             placeholder="Search articles..."
-                            className="w-full bg-transparent border-b border-white/5 focus:border-white/20 py-4 pl-8 text-base focus:outline-none transition-all placeholder:text-slate-600"
+                            className="w-full bg-transparent py-2 pl-10 text-lg lg:text-xl focus:outline-none placeholder:text-slate-700"
                         />
                     </div>
                 </div>
             </section>
 
             {/* Posts Content */}
-            <section className="pb-32 px-4 relative z-10">
+            <section className="py-24 lg:py-32 px-4 relative z-10">
                 <div className="container max-w-7xl mx-auto">
                     {posts && posts.length > 0 ? (
-                        <div className="flex flex-col gap-24">
+                        <div className="flex flex-col gap-24 lg:gap-32">
                             {/* Featured Post Card */}
                             <Link href={`/blog/${posts[0].slug}`}>
-                                <article className={`card ${config.cardClass} group cursor-pointer overflow-hidden flex flex-col lg:flex-row min-h-[550px]`}>
-                                    {/* Image (Strictly Controlled Size) */}
+                                <article className={`card ${config.cardClass} group cursor-pointer overflow-hidden flex flex-col lg:flex-row min-h-[500px] lg:min-h-[600px] !bg-[#020617]`}>
+                                    {/* Image Container */}
                                     {posts[0].image_url && (
-                                        <div className="lg:w-[45%] relative aspect-video lg:aspect-auto overflow-hidden">
+                                        <div className="lg:w-1/2 relative h-[300px] lg:h-auto overflow-hidden">
                                             <img
                                                 src={posts[0].image_url}
                                                 alt={posts[0].title}
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                                             />
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#020617]/20 hidden lg:block" />
                                         </div>
                                     )}
-                                    {/* Content (generous padding) */}
-                                    <div className="lg:w-[55%] p-10 lg:p-20 flex flex-col justify-center">
+                                    {/* Content Container */}
+                                    <div className="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center">
                                         <div className="flex items-center gap-4 mb-8">
                                             <span className={`${config.textColor} text-xs font-black uppercase tracking-[0.25em]`}>
                                                 {posts[0].category || 'FEATURED'}
                                             </span>
                                             <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
-                                            <span className="text-slate-500 font-bold text-xs uppercase tracking-[0.2em]">
+                                            <span className="text-slate-500 font-bold text-[10px] uppercase tracking-[0.2em]">
                                                 {new Date(posts[0].created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase()}
                                             </span>
                                         </div>
-                                        <h2 className="text-4xl lg:text-7xl font-black text-white mb-8 leading-[1.05] tracking-tighter group-hover:translate-x-1 transition-transform duration-500">
+                                        <h2 className="text-4xl lg:text-7xl font-black text-white mb-10 leading-[1.05] tracking-tighter group-hover:translate-x-1 transition-transform duration-500">
                                             {posts[0].title}
                                         </h2>
-                                        <p className="text-slate-400 text-lg lg:text-xl mb-12 line-clamp-3 leading-relaxed font-medium">
+                                        <p className="text-slate-400 text-lg lg:text-xl mb-12 line-clamp-4 leading-relaxed font-medium">
                                             {posts[0].excerpt}
                                         </p>
                                         <div className="flex items-center justify-between mt-auto">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400 group-hover:bg-white/10 transition-colors">
+                                                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400">
                                                     <Search size={22} />
                                                 </div>
                                                 <div>
                                                     <div className="text-white font-bold text-base tracking-tight">Matthew Kobilan</div>
-                                                    <div className="text-slate-500 text-xs font-semibold tracking-wider">Editorial Team</div>
+                                                    <div className="text-slate-500 text-xs font-semibold tracking-wider italic">Editorial Team</div>
                                                 </div>
                                             </div>
-                                            <div className={`flex items-center gap-3 ${config.textColor} text-xs font-black uppercase tracking-[0.3em] group-hover:translate-x-2 transition-all duration-500`}>
+                                            <div className={`flex items-center gap-3 ${config.textColor} text-xs font-black uppercase tracking-[0.4em] group-hover:translate-x-2 transition-all duration-500`}>
                                                 <span>READ STORY</span>
                                                 <ArrowRight size={18} strokeWidth={3} />
                                             </div>
@@ -235,13 +238,13 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                 </article>
                             </Link>
 
-                            {/* Remaining Posts Grid (Massive Gap for separation) */}
+                            {/* Remaining Posts Grid */}
                             {posts.length > 1 && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-20">
                                     {posts.slice(1).map((post, index) => (
                                         <Link href={`/blog/${post.slug}`} key={post.id}>
                                             <article
-                                                className={`card ${config.cardClass} group cursor-pointer flex flex-col h-full`}
+                                                className={`card ${config.cardClass} group cursor-pointer flex flex-col h-full !bg-[#020617]`}
                                                 style={{ animationDelay: `${index * 50}ms` }}
                                             >
                                                 {/* Image */}
@@ -250,7 +253,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                                         <img
                                                             src={post.image_url}
                                                             alt={post.title}
-                                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 shadow-xl"
+                                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                                                         />
                                                     </div>
                                                 )}
@@ -266,19 +269,19 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                                             {new Date(post.created_at).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' })}
                                                         </span>
                                                     </div>
-                                                    <h3 className="text-2xl lg:text-3xl font-black text-white mb-6 leading-[1.15] tracking-tight group-hover:translate-x-1 transition-transform">
+                                                    <h3 className="text-2xl lg:text-3xl font-black text-white mb-8 leading-[1.15] tracking-tight group-hover:translate-x-1 transition-transform">
                                                         {post.title}
                                                     </h3>
                                                     <p className="text-slate-400 text-base mb-12 line-clamp-3 leading-relaxed">
                                                         {post.excerpt}
                                                     </p>
 
-                                                    <div className="flex items-center justify-between mt-auto pt-6">
+                                                    <div className="flex items-center justify-between mt-auto pt-8 border-t border-white/5">
                                                         <div className="flex items-center gap-3">
-                                                            <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-slate-500 group-hover:bg-white/10 transition-colors">
+                                                            <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-slate-500">
                                                                 <Search size={14} />
                                                             </div>
-                                                            <span className="text-slate-500 text-[10px] font-bold tracking-wider">MATTHEW K.</span>
+                                                            <span className="text-slate-500 text-[10px] font-bold tracking-widest italic uppercase">MATTHEW K.</span>
                                                         </div>
                                                         <div className={`w-12 h-12 rounded-full bg-white/5 border border-white/5 flex items-center justify-center ${config.textColor} group-hover:bg-white group-hover:text-black group-hover:scale-110 transition-all shadow-sm`}>
                                                             <ArrowRight size={22} strokeWidth={2.5} />
@@ -292,10 +295,10 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                             )}
                         </div>
                     ) : (
-                        <div className="py-32 text-center">
-                            <h3 className="text-3xl font-black text-white mb-4">No Articles Found</h3>
-                            <p className="text-slate-500 text-xl mb-12">Check back soon for fresh content.</p>
-                            <Link href="/" className={`${config.textColor} font-black tracking-[0.4em] uppercase text-xs flex items-center justify-center gap-3 hover:opacity-70 transition-opacity`}>
+                        <div className="py-40 text-center">
+                            <h3 className="text-4xl font-black text-white mb-6 uppercase tracking-widest">No Articles Found</h3>
+                            <p className="text-slate-500 text-xl mb-16 max-w-lg mx-auto">We're currently preparing fresh content for this topic. Check back soon!</p>
+                            <Link href="/" className={`${config.textColor} font-black tracking-[0.5em] uppercase text-xs flex items-center justify-center gap-4 hover:opacity-70 transition-opacity`}>
                                 <ArrowLeft size={16} />
                                 BACK TO HUB
                             </Link>
