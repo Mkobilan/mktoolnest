@@ -1,0 +1,294 @@
+/* 
+ * Home Page Styles (CSS Module)
+ * Scoped styles for page.tsx (homepage)
+ */
+
+/* ===========================
+   Topic Cards
+   =========================== */
+.topicCard {
+    background: rgba(23, 23, 31, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    padding: 2rem;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+.topicCard:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Topic-specific hover effects */
+.hubplateCard:hover {
+    border-color: rgba(220, 38, 38, 0.6);
+    box-shadow: 0 0 30px rgba(220, 38, 38, 0.4), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.bayboltCard:hover {
+    border-color: rgba(255, 107, 26, 0.6);
+    box-shadow: 0 0 30px rgba(255, 107, 26, 0.4), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.hugloomCard:hover {
+    border-color: rgba(255, 138, 128, 0.6);
+    box-shadow: 0 0 30px rgba(255, 138, 128, 0.4), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.daylaborCard:hover {
+    border-color: rgba(217, 70, 239, 0.6);
+    box-shadow: 0 0 30px rgba(217, 70, 239, 0.4), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.raidmemegenCard:hover {
+    border-color: rgba(0, 255, 65, 0.6);
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.4), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.hangroomCard:hover {
+    border-color: rgba(236, 72, 153, 0.6);
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.4), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Card Background Image */
+.cardBackground {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.cardBackground img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    transition: all 0.5s;
+}
+
+.topicCard:hover .cardBackground img {
+    opacity: 0.4;
+    transform: scale(1.05);
+}
+
+.cardBackgroundOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+}
+
+/* Icon Container */
+.iconContainer {
+    position: relative;
+    margin-bottom: 1.5rem;
+    z-index: 10;
+}
+
+.iconBox {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+.topicCard:hover .iconBox {
+    transform: scale(1.1);
+}
+
+.iconGlow {
+    position: absolute;
+    inset: 0;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 1rem;
+    filter: blur(20px);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.topicCard:hover .iconGlow {
+    opacity: 0.7;
+}
+
+/* Card Content */
+.cardContent {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 1rem;
+}
+
+.cardTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.cardSubtitle {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.cardDescription {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+/* CTA */
+.cardCta {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: gap 0.3s;
+}
+
+.topicCard:hover .cardCta {
+    gap: 0.75rem;
+}
+
+/* ===========================
+   Built For Pros Card
+   =========================== */
+.builtForProsCard {
+    background: rgba(23, 23, 31, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    padding: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+}
+
+.builtForProsCard:hover {
+    border-color: rgba(99, 102, 241, 0.6);
+    box-shadow:
+        0 0 30px rgba(99, 102, 241, 0.3),
+        0 0 60px rgba(236, 72, 153, 0.2),
+        0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.builtForProsGradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), transparent, rgba(168, 85, 247, 0.1));
+}
+
+/* ===========================
+   Topic Colors
+   =========================== */
+.hubplateText {
+    color: #ef4444;
+}
+
+.hubplateSubtitle {
+    color: #fca5a5;
+}
+
+.hubplateDescription {
+    color: rgba(253, 186, 116, 0.9);
+}
+
+.bayboltText {
+    color: #FF6B1A;
+}
+
+.bayboltSubtitle {
+    color: #FFA366;
+}
+
+.bayboltDescription {
+    color: rgba(255, 179, 128, 0.9);
+}
+
+.hugloomText {
+    color: #FF8A80;
+}
+
+.hugloomSubtitle {
+    color: #FFA39D;
+}
+
+.hugloomDescription {
+    color: rgba(255, 179, 174, 0.9);
+}
+
+.daylaborText {
+    color: #D946EF;
+}
+
+.daylaborSubtitle {
+    color: #E879F9;
+}
+
+.daylaborDescription {
+    color: rgba(232, 121, 249, 0.9);
+}
+
+.raidmemegenText {
+    color: #00FF41;
+}
+
+.raidmemegenSubtitle {
+    color: #00FF41;
+}
+
+.raidmemegenDescription {
+    color: rgba(0, 255, 65, 0.8);
+}
+
+.hangroomText {
+    color: #ec4899;
+}
+
+.hangroomSubtitle {
+    color: #f472b6;
+}
+
+.hangroomDescription {
+    color: rgba(249, 168, 212, 0.9);
+}
+
+/* ===========================
+   Gradient Backgrounds
+   =========================== */
+.gradientHubplate {
+    background: linear-gradient(135deg, #dc2626, #ea580c);
+}
+
+.gradientBaybolt {
+    background: linear-gradient(135deg, #f97316, #1e3a8a);
+}
+
+.gradientHugloom {
+    background: linear-gradient(135deg, #f472b6, #f87171);
+}
+
+.gradientDaylabor {
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+}
+
+.gradientRaidmemegen {
+    background: linear-gradient(135deg, #00FF41, #003B00);
+}
+
+.gradientHangroom {
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+}

@@ -1,86 +1,20 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, User } from "lucide-react";
-import { notFound } from "next/navigation";
-import styles from "./topic.module.css";
+import styles from "../[topic]/topic.module.css";
 
 const topicConfig = {
-    baybolt: {
-        title: "Baybolt",
-        subtitle: "Tips & Tools for Mechanics",
-        colorClass: styles.baybolt,
-    },
-    hugloom: {
-        title: "HugLoom",
-        subtitle: "Tips & Tools for Caretakers",
-        colorClass: styles.hugloom,
-    },
-    daylabor: {
-        title: "Day Labor on Demand",
-        subtitle: "Tips & Tools for Contractors",
-        colorClass: styles.daylabor,
-    },
-    raidmemegen: {
-        title: "Raid Generator",
-        subtitle: "Tips & Tools for Gamers",
-        colorClass: styles.raidmemegen,
-    },
     hubplate: {
         title: "HubPlate",
         subtitle: "Tips & Tools for Restaurateurs",
         colorClass: styles.hubplate,
-    },
-    hangroom: {
-        title: "Hangroom",
-        subtitle: "Tips & Tools for Creators",
-        colorClass: styles.hangroom,
-    },
+    }
 };
 
-export async function generateStaticParams() {
-    return [
-        { topic: 'baybolt' },
-        { topic: 'hugloom' },
-        { topic: 'daylabor' },
-        { topic: 'raidmemegen' },
-        { topic: 'hubplate' },
-        { topic: 'hangroom' },
-    ];
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ topic: string }> }) {
-    const { topic } = await params;
-    const config = topicConfig[topic as keyof typeof topicConfig];
-    const baseUrl = 'https://mktoolnest.vercel.app';
-
-    if (!config) {
-        return { title: "Topic Not Found | MK Tool Nest" };
-    }
-
-    return {
-        title: `${config.title} - ${config.subtitle} | MK Tool Nest`,
-        description: `Explore expert guides, tips, and resources for ${config.title}. ${config.subtitle} at MK Tool Nest.`,
-        alternates: { canonical: `${baseUrl}/${topic}` },
-        openGraph: {
-            title: `${config.title} - ${config.subtitle} | MK Tool Nest`,
-            description: `Explore expert guides, tips, and resources for ${config.title}. ${config.subtitle} at MK Tool Nest.`,
-            url: `${baseUrl}/${topic}`,
-            images: [{ url: `${baseUrl}/icon.png`, width: 512, height: 512, alt: config.title }],
-        },
-    };
-}
-
-export default async function TopicPage({ params }: { params: Promise<{ topic: string }> }) {
-    const { topic } = await params;
-
-    if (!topicConfig[topic as keyof typeof topicConfig]) {
-        notFound();
-    }
-
-    const config = topicConfig[topic as keyof typeof topicConfig];
+export default async function DebugPage() {
+    const topic = 'hubplate';
+    const config = topicConfig.hubplate;
     const supabase = await createClient();
 
-    // Fetch hero image for this topic
     const { data: heroSetting } = await supabase
         .from("site_settings")
         .select("setting_value")
@@ -98,9 +32,12 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
 
     return (
         <div className="min-h-screen bg-[#020617] text-white">
+            <div className="bg-red-600 text-white font-bold p-4 text-center fixed top-0 left-0 right-0 z-[9999]">
+                DEBUG MODE: IF YOU SEE THIS, THE CODE IS WORKING
+            </div>
+
             {/* Hero Section */}
             <section className={styles.heroSection}>
-                {/* Hero Background Image */}
                 {heroImageUrl && (
                     <div className="absolute inset-0 z-0">
                         <img
@@ -120,18 +57,21 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                 </div>
             </section>
 
-            {/* Posts Content - Added mt-24 for SPACIOUS SEPARATION - DEBUG MODE */}
-            <section className="mt-24 pb-32 px-4">
+            {/* SPACER DIV to force separation */}
+            <div style={{ height: '100px', background: 'transparent' }} />
+
+            {/* Posts Content */}
+            <section className="pb-32 px-4">
                 <div className="container max-w-6xl mx-auto">
                     {posts && posts.length > 0 ? (
                         <div className="flex flex-col gap-16">
-                            {/* Featured Post Card - Pure inline styles */}
+                            {/* Featured Post Card - NO BORDERS */}
                             <Link href={`/blog/${posts[0].slug}`}>
                                 <article
-                                    className="bg-[#0f172a] overflow-hidden transition-all duration-300 hover:-translate-y-1 mb-[100px]"
+                                    className="bg-[#0f172a] overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl mb-[100px]"
                                     style={{ display: 'flex', flexDirection: 'row', borderRadius: '50px' }}
                                 >
-                                    {/* LEFT: Image - Fixed width, contained */}
+                                    {/* LEFT: Image */}
                                     {posts[0].image_url && (
                                         <div
                                             style={{
@@ -140,8 +80,8 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                                 maxWidth: '45%',
                                                 height: '400px',
                                                 flexShrink: 0,
-                                                overflow: 'hidden',
-                                                borderRadius: '50px 0 0 50px'
+                                                borderRadius: '50px 0 0 50px',
+                                                overflow: 'hidden'
                                             }}
                                         >
                                             <img
@@ -199,14 +139,14 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                                 </article>
                             </Link>
 
-                            {/* Grid Cards */}
+                            {/* Grid Cards - Removed borders to be safe */}
                             <div
                                 className="grid grid-cols-2 lg:grid-cols-3 px-4"
                                 style={{ gap: '100px' }}
                             >
                                 {posts.slice(1).map((post) => (
                                     <Link href={`/blog/${post.slug}`} key={post.id}>
-                                        <article className={styles.gridCard}>
+                                        <article className={styles.gridCard} style={{ border: 'none' }}>
                                             {post.image_url && (
                                                 <div className={styles.gridCardImageWrapper}>
                                                     <img src={post.image_url} alt={post.title} />
@@ -239,14 +179,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
                             </div>
                         </div>
                     ) : (
-                        <div className="py-40 text-center">
-                            <h3 className="text-4xl font-black text-white mb-6 uppercase tracking-widest">No Articles Found</h3>
-                            <p className="text-slate-500 text-xl mb-16 max-w-lg mx-auto">We&apos;re currently preparing fresh content for this topic. Check back soon!</p>
-                            <Link href="/" className={`${config.colorClass} font-black tracking-[0.5em] uppercase text-xs flex items-center justify-center gap-4 hover:opacity-70 transition-opacity`}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
-                                BACK TO HUB
-                            </Link>
-                        </div>
+                        <div className="text-center text-white p-20">No posts found</div>
                     )}
                 </div>
             </section>

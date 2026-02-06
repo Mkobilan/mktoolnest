@@ -1,0 +1,328 @@
+/* 
+ * Topic Page Styles (CSS Module)
+ * Scoped styles for [topic]/page.tsx
+ */
+
+/* ===========================
+   Featured Card
+   =========================== */
+.featuredCard {
+    background: #0f172a;
+    border-radius: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+}
+
+.featuredCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.featuredCardImage {
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.featuredCardImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.featuredCardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.featuredCardMeta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.featuredCardCategory {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+}
+
+.featuredCardDate {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #64748b;
+}
+
+.featuredCardTitle {
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    font-weight: 900;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+}
+
+.featuredCard:hover .featuredCardTitle {
+    opacity: 0.9;
+}
+
+.featuredCardExcerpt {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #94a3b8;
+    margin-bottom: 2.5rem;
+    opacity: 0.8;
+}
+
+.featuredCardFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 2rem;
+    margin-top: auto;
+}
+
+.featuredCardAuthor {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.featuredCardAuthorAvatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+}
+
+.featuredCardAuthorName {
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: #e2e8f0;
+}
+
+.featuredCardAuthorRole {
+    font-size: 10px;
+    font-weight: 600;
+    font-style: italic;
+    color: #64748b;
+}
+
+.featuredCardLink {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    transition: gap 0.3s;
+}
+
+.featuredCard:hover .featuredCardLink {
+    gap: 1.25rem;
+}
+
+/* ===========================
+   Grid Card
+   =========================== */
+.gridCard {
+    background: #0f172a;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gridCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.gridCardImageWrapper {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    margin: 1rem;
+    border-radius: 1rem;
+}
+
+.gridCardImageWrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.gridCard:hover .gridCardImageWrapper img {
+    transform: scale(1.05);
+}
+
+.gridCardContent {
+    padding: 0 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.gridCardMeta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.gridCardCategory {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.gridCardDate {
+    font-size: 10px;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.gridCardTitle {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    transition: opacity 0.3s;
+}
+
+.gridCard:hover .gridCardTitle {
+    opacity: 0.8;
+}
+
+.gridCardExcerpt {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin-bottom: 2rem;
+}
+
+.gridCardFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1.5rem;
+    margin-top: auto;
+}
+
+.gridCardAuthor {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.gridCardAuthorAvatar {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.gridCardAuthorName {
+    font-size: 10px;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.gridCardArrow {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.gridCard:hover .gridCardArrow {
+    background: currentColor;
+}
+
+.gridCard:hover .gridCardArrow svg {
+    color: white;
+}
+
+/* ===========================
+   Topic Colors
+   =========================== */
+.hubplate {
+    color: #ef4444;
+}
+
+.baybolt {
+    color: #f97316;
+}
+
+.hugloom {
+    color: #f472b6;
+}
+
+.daylabor {
+    color: #a855f7;
+}
+
+.raidmemegen {
+    color: #00FF41;
+}
+
+.hangroom {
+    color: #ec4899;
+}
+
+/* ===========================
+   Hero Section
+   =========================== */
+.heroSection {
+    position: relative;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    background: #020617;
+    overflow: hidden;
+}
+
+.heroTitle {
+    font-size: clamp(4rem, 12vw, 9rem);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.heroTitleFaded {
+    color: rgba(255, 255, 255, 0.1);
+}
+
+.heroSubtitle {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+}

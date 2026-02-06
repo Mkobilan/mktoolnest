@@ -1,7 +1,7 @@
 'use client';
 
 import { marked } from 'marked';
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 interface MarkdownRendererProps {
     content: string;
@@ -9,37 +9,86 @@ interface MarkdownRendererProps {
 }
 
 export default function MarkdownRenderer({ content, className = '' }: MarkdownRendererProps) {
-    const htmlContent = useMemo(() => {
-        // Configure marked for safe rendering
-        marked.setOptions({
-            breaks: true,
-            gfm: true,
-        });
+    const [htmlContent, setHtmlContent] = useState<string>('');
 
-        return marked.parse(content) as string;
+    useEffect(() => {
+        const parseMarkdown = async () => {
+            if (!content) {
+                setHtmlContent('');
+                return;
+            }
+            try {
+                // Configure marked options explicitly for stability
+                const parsed = await marked.parse(content, {
+                    async: true,
+                    breaks: true, // Converts single Enter to <br>
+                    gfm: true
+                });
+                setHtmlContent(parsed);
+            } catch (error) {
+                console.error("Markdown parsing error:", error);
+                setHtmlContent("<p class='text-red-500'>Error rendering preview</p>");
+            }
+        };
+
+        parseMarkdown();
     }, [content]);
 
     return (
-        <div
-            className={`prose prose-invert prose-lg max-w-none 
-                prose-headings:text-white prose-headings:font-black
-                prose-h1:text-4xl prose-h1:mb-6
-                prose-h2:text-3xl prose-h2:mb-4 prose-h2:mt-8
-                prose-h3:text-2xl prose-h3:mb-3
-                prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
-                prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
-                prose-strong:text-white prose-strong:font-bold
-                prose-em:text-gray-200
-                prose-ul:list-disc prose-ul:pl-6 prose-ul:space-y-2
-                prose-ol:list-decimal prose-ol:pl-6 prose-ol:space-y-2
-                prose-li:text-gray-300
-                prose-blockquote:border-l-4 prose-blockquote:border-blue-500 
-                prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-400
-                prose-code:bg-slate-800 prose-code:px-2 prose-code:py-1 prose-code:rounded
-                prose-pre:bg-slate-900 prose-pre:p-4 prose-pre:rounded-lg
-                prose-img:rounded-lg prose-img:shadow-lg
-                ${className}`}
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-        />
+        <div className={`blog-preview-container-final ${className}`} id="BLOG-PREVIEW-FIX">
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                /* 
+                   THE ULTIMATE FIX:
+                   We force every paragraph to have a undeniable margin.
+                   We also force <br> tags to act like a space for single-enters.
+                */
+                #BLOG-PREVIEW-FIX .content-inner p {
+                    margin-top: 0 !important;
+                    margin-bottom: 2rem !important; /* LARGE paragraph space */
+                    display: block !important;
+                    line-height: 1.8 !important;
+                }
+
+                #BLOG-PREVIEW-FIX .content-inner h1,
+                #BLOG-PREVIEW-FIX .content-inner h2,
+                #BLOG-PREVIEW-FIX .content-inner h3 {
+                    margin-top: 3.5rem !important;
+                    margin-bottom: 1.5rem !important;
+                    display: block !important;
+                }
+
+                /* FORCE <br> to behave like a vertical move */
+                #BLOG-PREVIEW-FIX .content-inner br {
+                    display: block !important;
+                    content: "" !important;
+                    margin-top: 1.5rem !important;
+                }
+
+                #BLOG-PREVIEW-FIX .content-inner img {
+                    max-height: 400px !important;
+                    width: auto !important;
+                    margin: 2.5rem auto !important;
+                    display: block !important;
+                    border-radius: 1rem !important;
+                }
+
+                #BLOG-PREVIEW-FIX .content-inner ul,
+                #BLOG-PREVIEW-FIX .content-inner ol {
+                    margin-bottom: 2rem !important;
+                    padding-left: 2rem !important;
+                    display: block !important;
+                }
+
+                #BLOG-PREVIEW-FIX .content-inner li {
+                    margin-bottom: 0.75rem !important;
+                    display: list-item !important;
+                }
+            `}} />
+            <div
+                className="content-inner prose prose-invert prose-lg max-w-none"
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
+        </div>
     );
 }

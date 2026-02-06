@@ -1,0 +1,291 @@
+/* 
+ * Blog Article Page Styles (CSS Module)
+ * Scoped styles for blog/[slug]/page.tsx
+ */
+
+/* ===========================
+   Hero Section
+   =========================== */
+.heroSection {
+    position: relative;
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 4rem;
+}
+
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.85));
+    z-index: 1;
+}
+
+.heroContent {
+    position: relative;
+    z-index: 10;
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+/* ===========================
+   Article Container
+   =========================== */
+/* .articleContainer removed as it's no longer needed for padding, but class kept in JSX for potential future use or if other styles target it. If truly empty, we can just comment it out or remove it entirely. For now, removing the empty block. */
+
+
+.articleInner {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ===========================
+   Back Button
+   =========================== */
+.backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    transition: color 0.3s;
+}
+
+.backButton:hover {
+    color: white;
+}
+
+.backButton svg {
+    transition: transform 0.3s;
+}
+
+.backButton:hover svg {
+    transform: translateX(-4px);
+}
+
+/* ===========================
+   Article Header
+   =========================== */
+.articleHeader {
+    animation: fadeInUp 0.6s ease-out;
+    max-width: 50rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.topicBadge {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+.articleTitle {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: white;
+    /* Changed from gradient to white for overlay visibility */
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ===========================
+   Featured Image
+   =========================== */
+/* Removed small featured image styles as it's now the hero background */
+
+/* ===========================
+   Metadata
+   =========================== */
+.metadata {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 0;
+    /* Reset margin */
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.metadataItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ===========================
+   Excerpt
+   =========================== */
+.excerpt {
+    font-size: 1.25rem;
+    color: #d1d5db;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    border-left: 4px solid var(--primary, #6366f1);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* ===========================
+   Content
+   =========================== */
+.content {
+    color: #9ca3af;
+    line-height: 1.8;
+    font-size: 1.125rem;
+}
+
+.content a {
+    color: #6366f1;
+    text-decoration: underline;
+    text-decoration-color: rgba(99, 102, 241, 0.3);
+    text-underline-offset: 3px;
+}
+
+.content a:hover {
+    text-decoration-color: #6366f1;
+}
+
+.content strong {
+    color: #f5f5f7;
+    font-weight: 700;
+}
+
+.content h2,
+.content h3 {
+    color: #f5f5f7;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+}
+
+/* ===========================
+   Bottom CTA
+   =========================== */
+.bottomCta {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bottomCtaLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    transition: gap 0.3s;
+}
+
+.bottomCtaLink:hover {
+    gap: 0.75rem;
+}
+
+/* ===========================
+   Topic Gradient Variants
+   =========================== */
+.gradientHubplate {
+    background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
+}
+
+.gradientBaybolt {
+    background: linear-gradient(135deg, #FF6B1A 0%, #1e3a8a 100%);
+}
+
+.gradientHugloom {
+    background: linear-gradient(135deg, #FF8A80 0%, #f87171 100%);
+}
+
+.gradientDaylabor {
+    background: linear-gradient(135deg, #D946EF 0%, #a855f7 100%);
+}
+
+.gradientRaidmemegen {
+    background: linear-gradient(135deg, #00FF41 0%, #003B00 100%);
+}
+
+.gradientHangroom {
+    background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+}
+
+/* ===========================
+   Topic Text Colors
+   =========================== */
+.textHubplate {
+    color: #ef4444;
+}
+
+.textBaybolt {
+    color: #f97316;
+}
+
+.textHugloom {
+    color: #f472b6;
+}
+
+.textDaylabor {
+    color: #a855f7;
+}
+
+.textRaidmemegen {
+    color: #00FF41;
+}
+
+.textHangroom {
+    color: #ec4899;
+}
+
+/* ===========================
+   Metadata Text Colors
+   =========================== */
+.metaHubplate {
+    color: #fdba74;
+}
+
+.metaBaybolt {
+    color: #FFA366;
+}
+
+.metaHugloom {
+    color: #FFB3AE;
+}
+
+.metaDaylabor {
+    color: #E879F9;
+}
+
+.metaRaidmemegen {
+    color: #00FF41;
+}
+
+.metaHangroom {
+    color: #f9a8d4;
+}

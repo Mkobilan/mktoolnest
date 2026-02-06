@@ -30,7 +30,7 @@ function PostEditorContent() {
         published: true,
         image_url: "",
         external_link: "",
-        category: "GENERAL",
+        category: "General",
     });
 
     const [loading, setLoading] = useState(false);
@@ -61,7 +61,7 @@ function PostEditorContent() {
                 published: data.published,
                 image_url: data.image_url || "",
                 external_link: data.external_link || "",
-                category: data.category || "GENERAL",
+                category: data.category || "General",
             });
             setIsEditing(true);
         }
@@ -79,34 +79,40 @@ function PostEditorContent() {
             excerpt: formData.excerpt,
             topic: formData.topic,
             published: formData.published,
-            image_url: formData.image_url,
-            external_link: formData.external_link || null,
+            // Send null if empty string to avoid "invalid input syntax for type text" or similar constraints if applicable
+            image_url: formData.image_url.trim() === "" ? null : formData.image_url,
+            external_link: formData.external_link.trim() === "" ? null : formData.external_link,
             category: formData.category,
         };
 
-        if (isEditing && postId) {
-            const { error } = await supabase
-                .from("posts")
-                .update(postData)
-                .eq("id", postId);
+        try {
+            if (isEditing && postId) {
+                const { error } = await supabase
+                    .from("posts")
+                    .update(postData)
+                    .eq("id", postId);
 
-            if (error) {
-                console.error('Update error:', error);
-                alert(`Error updating post: ${error.message}`);
+                if (error) {
+                    console.error('Update error object:', error);
+                    alert(`Error updating post: ${error.message || JSON.stringify(error)}`);
+                } else {
+                    router.push("/admin/dashboard");
+                }
             } else {
-                router.push("/admin/dashboard");
-            }
-        } else {
-            const { error } = await supabase
-                .from("posts")
-                .insert([postData]);
+                const { error } = await supabase
+                    .from("posts")
+                    .insert([postData]);
 
-            if (error) {
-                console.error('Insert error:', error);
-                alert(`Error creating post: ${error.message}`);
-            } else {
-                router.push("/admin/dashboard");
+                if (error) {
+                    console.error('Insert error object:', error);
+                    alert(`Error creating post: ${error.message || JSON.stringify(error)}`);
+                } else {
+                    router.push("/admin/dashboard");
+                }
             }
+        } catch (err) {
+            console.error("Unexpected error:", err);
+            alert("An unexpected error occurred. Check console for details.");
         }
         setLoading(false);
     };
@@ -127,27 +133,58 @@ function PostEditorContent() {
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
         const selectedText = formData.content.substring(start, end);
-        const textToInsert = selectedText || placeholder;
 
-        const newContent =
-            formData.content.substring(0, start) +
-            prefix + textToInsert + suffix +
-            formData.content.substring(end);
+        let newContent = formData.content;
+        let newSelectionStart = start;
+        let newSelectionEnd = end;
 
-        setFormData({ ...formData, content: newContent });
+        if (start !== end) {
+            // Check for existing formatting covering the EXACT selection
+            const beforeSelection = formData.content.substring(start - prefix.length, start);
+            const afterSelection = formData.content.substring(end, end + suffix.length);
+
+            if (beforeSelection === prefix && afterSelection === suffix) {
+                // Remove formatting (toggle off)
+                newContent =
+                    formData.content.substring(0, start - prefix.length) +
+                    selectedText +
+                    formData.content.substring(end + suffix.length);
+
+                newSelectionStart = start - prefix.length;
+                newSelectionEnd = end - prefix.length;
+            } else {
+                // Apply formatting to selection (toggle on)
+                newContent =
+                    formData.content.substring(0, start) +
+                    prefix + selectedText + suffix +
+                    formData.content.substring(end);
+
+                newSelectionStart = start + prefix.length;
+                newSelectionEnd = newSelectionStart + selectedText.length;
+            }
+        } else {
+            // No selection: Insert placeholder or just the tokens
+            // If placeholder is provided, insert it. If empty string is passed as placeholder (like for lists), just insert prefix.
+            const textToInsert = placeholder || "";
+            newContent =
+                formData.content.substring(0, start) +
+                prefix + textToInsert + suffix +
+                formData.content.substring(end);
+
+            newSelectionStart = start + prefix.length;
+            newSelectionEnd = newSelectionStart + textToInsert.length;
+        }
+
+        setFormData(prev => ({ ...prev, content: newContent }));
 
         requestAnimationFrame(() => {
             if (textarea) {
                 textarea.scrollTop = scrollTop;
                 textarea.focus();
-                const newCursorPos = start + prefix.length + textToInsert.length + suffix.length;
-                textarea.setSelectionRange(
-                    selectedText ? start + prefix.length : newCursorPos,
-                    selectedText ? start + prefix.length + selectedText.length : newCursorPos
-                );
+                textarea.setSelectionRange(newSelectionStart, newSelectionEnd);
             }
         });
-    }, [formData]);
+    }, [formData.content]);
 
     const toolbarButtons = [
         { icon: Bold, action: () => applyFormatting('**', '**', 'bold text'), title: 'Bold' },
@@ -158,6 +195,8 @@ function PostEditorContent() {
         { icon: ListOrdered, action: () => applyFormatting('1. ', '', ''), title: 'Numbers' },
         { icon: LinkIcon, action: () => applyFormatting('[', '](url)', 'link text'), title: 'Link' },
         { icon: ImageIcon, action: () => applyFormatting('![', '](image-url)', 'alt text'), title: 'Image' },
+        { icon: Code, action: () => applyFormatting('`', '`', 'code'), title: 'Code' },
+        { icon: Quote, action: () => applyFormatting('> ', '', 'Quote'), title: 'Quote' },
     ];
 
     // Scroll sync
@@ -174,61 +213,64 @@ function PostEditorContent() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-950">
+        <div className="min-h-screen bg-[#0A0A0B] text-slate-200" style={{ backgroundColor: '#0A0A0B', color: '#e2e8f0' }}>
             {/* Top Toolbar */}
-            <div className="sticky top-0 z-50 bg-slate-900 border-b border-slate-800 px-6 py-3">
+            <div className="sticky top-0 z-50 bg-[#0A0A0B]/95 backdrop-blur-xl border-b border-white/5 px-6 py-4" style={{ backgroundColor: 'rgba(10, 10, 11, 0.95)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                 <div className="flex items-center justify-between max-w-7xl mx-auto">
                     {/* Formatting Buttons */}
-                    <div className="flex items-center gap-1">
-                        {toolbarButtons.map((btn, idx) => (
-                            <button
-                                key={idx}
-                                type="button"
-                                onClick={btn.action}
-                                className="p-2.5 rounded-lg hover:bg-slate-800 text-gray-400 hover:text-white transition-all"
-                                title={btn.title}
-                            >
-                                <btn.icon size={18} />
-                            </button>
-                        ))}
-
-                        {/* Separator */}
-                        <div className="w-px h-6 bg-slate-700 mx-2"></div>
+                    <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2 bg-white/[0.03] p-1.5 rounded-xl border border-white/5" style={{ backgroundColor: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.05)' }}>
+                            {toolbarButtons.map((btn, idx) => (
+                                <button
+                                    key={idx}
+                                    type="button"
+                                    onClick={btn.action}
+                                    className="p-2.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-all active:scale-95 flex items-center justify-center group relative"
+                                    style={{ color: '#9ca3af' }}
+                                    title={btn.title}
+                                >
+                                    <btn.icon size={20} strokeWidth={2} className="group-hover:scale-110 transition-transform" />
+                                </button>
+                            ))}
+                        </div>
 
                         {/* View Mode Toggle */}
-                        <div className="flex bg-slate-800 rounded-lg p-1">
+                        <div className="flex items-center gap-2 bg-white/[0.03] p-1.5 rounded-xl border border-white/5" style={{ backgroundColor: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.05)' }}>
                             <button
                                 type="button"
                                 onClick={() => setViewMode('edit')}
-                                className={`px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-all ${viewMode === 'edit'
-                                    ? 'bg-blue-600 text-white'
-                                    : 'text-gray-400 hover:text-white'
+                                className={`p-2.5 rounded-lg transition-all flex items-center justify-center group ${viewMode === 'edit'
+                                    ? 'bg-blue-500/20 text-blue-400'
+                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                                     }`}
+                                style={viewMode === 'edit' ? { backgroundColor: 'rgba(59, 130, 246, 0.2)', color: '#60a5fa' } : { color: '#9ca3af' }}
+                                title="Editor Only"
                             >
-                                <Edit3 size={14} />
-                                Editor
+                                <Edit3 size={20} strokeWidth={2} className="group-hover:scale-110 transition-transform" />
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setViewMode('split')}
-                                className={`px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-all ${viewMode === 'split'
-                                    ? 'bg-blue-600 text-white'
-                                    : 'text-gray-400 hover:text-white'
+                                className={`p-2.5 rounded-lg transition-all flex items-center justify-center group ${viewMode === 'split'
+                                    ? 'bg-blue-500/20 text-blue-400'
+                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                                     }`}
+                                style={viewMode === 'split' ? { backgroundColor: 'rgba(59, 130, 246, 0.2)', color: '#60a5fa' } : { color: '#9ca3af' }}
+                                title="Split View"
                             >
-                                <Columns size={14} />
-                                Split
+                                <Columns size={20} strokeWidth={2} className="group-hover:scale-110 transition-transform" />
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setViewMode('preview')}
-                                className={`px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-all ${viewMode === 'preview'
-                                    ? 'bg-blue-600 text-white'
-                                    : 'text-gray-400 hover:text-white'
+                                className={`p-2.5 rounded-lg transition-all flex items-center justify-center group ${viewMode === 'preview'
+                                    ? 'bg-blue-500/20 text-blue-400'
+                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                                     }`}
+                                style={viewMode === 'preview' ? { backgroundColor: 'rgba(59, 130, 246, 0.2)', color: '#60a5fa' } : { color: '#9ca3af' }}
+                                title="Preview Only"
                             >
-                                <Eye size={14} />
-                                Preview
+                                <Eye size={20} strokeWidth={2} className="group-hover:scale-110 transition-transform" />
                             </button>
                         </div>
                     </div>
@@ -237,20 +279,25 @@ function PostEditorContent() {
                     <button
                         onClick={handleSubmit}
                         disabled={loading}
-                        className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium flex items-center gap-2 transition-colors"
+                        className="group relative px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl font-semibold flex items-center gap-2.5 shadow-lg shadow-blue-500/20 transition-all hover:shadow-blue-500/30 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed border border-white/10"
+                        style={{
+                            background: 'linear-gradient(to right, #2563eb, #4f46e5)',
+                            color: 'white',
+                            boxShadow: '0 10px 15px -3px rgba(59, 130, 246, 0.2)'
+                        }}
                     >
-                        <Save size={16} />
+                        <Save size={18} className="transition-transform group-hover:scale-110" />
                         {loading ? "Saving..." : "Save Article"}
                     </button>
                 </div>
             </div>
 
             {/* Main Editor Area */}
-            <div className="max-w-7xl mx-auto px-6 py-8">
-                <div className={`grid gap-8 ${viewMode === 'split' ? 'grid-cols-2' : 'grid-cols-1'}`}>
+            <div className="max-w-7xl mx-auto px-6 py-10">
+                <div className={`grid gap-10 ${viewMode === 'split' ? 'grid-cols-2' : 'grid-cols-1'}`}>
                     {/* Left Column - Form */}
                     {(viewMode === 'edit' || viewMode === 'split') && (
-                        <div className="space-y-6">
+                        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                             {/* Title */}
                             <div>
                                 <input
@@ -264,120 +311,136 @@ function PostEditorContent() {
                                             slug: !isEditing ? generateSlug(newTitle) : formData.slug
                                         });
                                     }}
-                                    placeholder="Article Title"
-                                    className="w-full text-3xl font-black bg-transparent border-none text-white placeholder-gray-600 focus:outline-none italic"
+                                    placeholder="Article Title..."
+                                    className="w-full text-4xl font-black bg-transparent border-none text-white placeholder-gray-600 focus:outline-none focus:ring-0 px-0 tracking-tight italic"
+                                    style={{ backgroundColor: 'transparent', color: 'white', fontSize: '2.25rem', fontWeight: 900 }}
                                     required
                                 />
                             </div>
 
                             {/* Slug, Application, Category, Status Row */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div>
-                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Slug</label>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                                <div className="space-y-2">
+                                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Slug</label>
                                     <input
                                         type="text"
                                         value={formData.slug}
                                         onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                                         placeholder="article-slug"
-                                        className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-slate-700 font-mono text-sm"
+                                        className="w-full px-4 py-3.5 bg-slate-900/50 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all font-mono shadow-sm"
+                                        style={{ backgroundColor: 'rgba(15, 23, 42, 0.5)', color: 'white', borderColor: 'rgba(255,255,255,0.1)' }}
                                         required
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Application</label>
-                                    <select
-                                        value={formData.topic}
-                                        onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-                                        className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-slate-700 appearance-none cursor-pointer"
-                                    >
-                                        <option value="hubplate">HubPlate</option>
-                                        <option value="hangroom">Hangroom</option>
-                                        <option value="baybolt">Baybolt</option>
-                                        <option value="hugloom">HugLoom</option>
-                                        <option value="daylabor">Day Labor</option>
-                                        <option value="raidmemegen">Raid Generator</option>
-                                    </select>
+                                <div className="space-y-2">
+                                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Application</label>
+                                    <div className="relative">
+                                        <select
+                                            value={formData.topic}
+                                            onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
+                                            className="w-full px-4 py-3.5 bg-slate-900/50 border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all appearance-none cursor-pointer shadow-sm"
+                                            style={{ backgroundColor: 'rgba(15, 23, 42, 0.5)', color: 'white', borderColor: 'rgba(255,255,255,0.1)' }}
+                                        >
+                                            <option value="hubplate" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>HubPlate</option>
+                                            <option value="hangroom" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>Hangroom</option>
+                                            <option value="baybolt" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>Baybolt</option>
+                                            <option value="hugloom" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>HugLoom</option>
+                                            <option value="daylabor" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>Day Labor</option>
+                                            <option value="raidmemegen" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>Raid Generator</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Category</label>
-                                    <input
-                                        type="text"
-                                        value={formData.category}
-                                        onChange={(e) => setFormData({ ...formData, category: e.target.value.toUpperCase() })}
-                                        placeholder="TIPS, STRATEGIES, etc."
-                                        className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-slate-700 font-bold text-sm tracking-widest"
-                                    />
+                                <div className="space-y-2">
+                                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Category</label>
+                                    <div className="relative">
+                                        <select
+                                            value={formData.category}
+                                            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                            className="w-full px-4 py-3.5 bg-slate-900/50 border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all appearance-none cursor-pointer shadow-sm"
+                                            style={{ backgroundColor: 'rgba(15, 23, 42, 0.5)', color: 'white', borderColor: 'rgba(255,255,255,0.1)' }}
+                                        >
+                                            <option value="General" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>General</option>
+                                            <option value="Strategy" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>Strategy</option>
+                                            <option value="Tips" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>Tips</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Status</label>
-                                    <select
-                                        value={formData.published ? "published" : "draft"}
-                                        onChange={(e) => setFormData({ ...formData, published: e.target.value === "published" })}
-                                        className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-slate-700 appearance-none cursor-pointer"
-                                    >
-                                        <option value="draft">Draft</option>
-                                        <option value="published">Published</option>
-                                    </select>
+                                <div className="space-y-2">
+                                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Status</label>
+                                    <div className="relative">
+                                        <select
+                                            value={formData.published ? "published" : "draft"}
+                                            onChange={(e) => setFormData({ ...formData, published: e.target.value === "published" })}
+                                            className="w-full px-4 py-3.5 bg-slate-900/50 border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all appearance-none cursor-pointer shadow-sm"
+                                            style={{ backgroundColor: 'rgba(15, 23, 42, 0.5)', color: 'white', borderColor: 'rgba(255,255,255,0.1)' }}
+                                        >
+                                            <option value="draft" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>Draft</option>
+                                            <option value="published" className="bg-slate-900 text-white" style={{ backgroundColor: '#0f172a' }}>Published</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Featured Image URL */}
-                            <div>
-                                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Featured Image URL</label>
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Featured Image URL</label>
                                 <input
                                     type="url"
                                     value={formData.image_url}
                                     onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
                                     placeholder="https://..."
-                                    className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-slate-700"
+                                    className="w-full px-4 py-3.5 bg-slate-900/50 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all shadow-sm"
+                                    style={{ backgroundColor: 'rgba(15, 23, 42, 0.5)', color: 'white', borderColor: 'rgba(255,255,255,0.1)' }}
                                 />
                             </div>
 
                             {/* Excerpt */}
-                            <div>
-                                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Excerpt</label>
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Excerpt</label>
                                 <textarea
                                     value={formData.excerpt}
                                     onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
                                     placeholder="A brief summary for SEO and previews..."
-                                    rows={2}
-                                    className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-slate-700 resize-none"
+                                    rows={3}
+                                    className="w-full px-4 py-3.5 bg-slate-900/50 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all resize-none shadow-sm"
+                                    style={{ backgroundColor: 'rgba(15, 23, 42, 0.5)', color: 'white', borderColor: 'rgba(255,255,255,0.1)' }}
                                     required
                                 />
                             </div>
 
                             {/* Content */}
-                            <div>
-                                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Content (Markdown)</label>
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Content (Markdown)</label>
                                 <textarea
                                     ref={textareaRef}
                                     value={formData.content}
                                     onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                                     onScroll={handleEditorScroll}
                                     placeholder="Start writing your masterpiece..."
-                                    className="w-full px-4 py-4 bg-slate-900 border border-slate-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-slate-700 font-mono text-sm leading-relaxed resize-none"
-                                    style={{ minHeight: '400px' }}
+                                    className="w-full px-5 py-5 bg-slate-900/50 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all font-mono text-sm leading-relaxed resize-none shadow-sm"
+                                    style={{ minHeight: '500px', backgroundColor: 'rgba(15, 23, 42, 0.5)', color: 'white', borderColor: 'rgba(255,255,255,0.1)' }}
                                 />
                             </div>
 
                             {/* External Link */}
-                            <div>
-                                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">External Link <span className="text-gray-600">(optional)</span></label>
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">External Link <span className="text-gray-600">(optional)</span></label>
                                 <input
                                     type="url"
                                     value={formData.external_link}
                                     onChange={(e) => setFormData({ ...formData, external_link: e.target.value })}
                                     placeholder="https://example.com/original-post"
-                                    className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-slate-700"
+                                    className="w-full px-4 py-3.5 bg-slate-900/50 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all shadow-sm"
+                                    style={{ backgroundColor: 'rgba(15, 23, 42, 0.5)', color: 'white', borderColor: 'rgba(255,255,255,0.1)' }}
                                 />
                             </div>
 
                             {/* Cancel Button */}
-                            <div className="pt-4">
+                            <div className="pt-6">
                                 <button
                                     type="button"
                                     onClick={() => router.push("/admin/dashboard")}
-                                    className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                                    className="px-4 py-2 text-gray-500 hover:text-white transition-colors text-sm font-medium"
                                 >
                                     ← Back to Dashboard
                                 </button>
@@ -389,11 +452,11 @@ function PostEditorContent() {
                     {(viewMode === 'preview' || viewMode === 'split') && (
                         <div
                             ref={previewRef}
-                            className="bg-slate-900/50 border border-slate-800 rounded-xl p-8 overflow-y-auto"
-                            style={{ maxHeight: 'calc(100vh - 200px)' }}
+                            className="bg-black/20 border border-white/5 rounded-2xl p-10 overflow-y-auto min-h-[500px] shadow-inner"
+                            style={{ maxHeight: 'calc(100vh - 140px)', backgroundColor: 'rgba(0,0,0,0.2)', borderColor: 'rgba(255,255,255,0.05)' }}
                         >
-                            <h1 className="text-4xl font-black text-white mb-6 uppercase italic">
-                                {formData.title || 'Untitled Article'}
+                            <h1 className="text-4xl md:text-5xl font-black text-white mb-8 tracking-tight" style={{ color: 'white' }}>
+                                {formData.title || <span className="text-white/20" style={{ color: 'rgba(255,255,255,0.2)' }}>Untitled Article</span>}
                             </h1>
                             <MarkdownRenderer content={formData.content} />
                         </div>

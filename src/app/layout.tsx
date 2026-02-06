@@ -143,7 +143,7 @@ export default function RootLayout({
                 <p className="text-sm text-gray-500">Empowering professionals across industries</p>
               </div>
               <div className="text-sm text-gray-500">
-                &copy; {new Date().getFullYear()} mktoolnest. All rights reserved.
+                &copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> mktoolnest. All rights reserved.
               </div>
             </div>
           </div>

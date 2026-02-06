@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { PlusCircle, Edit, Trash2, LogOut, ChevronDown } from "lucide-react";
+import styles from "../admin.module.css";
 
 export const dynamic = 'force-dynamic';
 
@@ -152,44 +153,56 @@ export default function AdminDashboard() {
                 {/* Posts List */}
                 <div className="space-y-4">
                     {filteredPosts.length === 0 ? (
-                        <div className="card p-12 text-center">
+                        <div className={`p-12 text-center border border-white/10 rounded-xl bg-white/5`}>
                             <p className="text-gray-400">No posts found matching your filters.</p>
                         </div>
                     ) : (
-                        filteredPosts.map((post) => (
-                            <div key={post.id} className={`card p-6 flex items-center justify-between ${post.topic}-card`}>
-                                <div className="flex-1 text-center">
-                                    <div className="flex items-center justify-center gap-3 mb-2">
-                                        <h3 className="text-xl font-bold">{post.title}</h3>
-                                        {!post.published && (
-                                            <span className="px-2 py-1 text-xs bg-yellow-500/20 text-yellow-500 rounded">
-                                                Draft
+                        filteredPosts.map((post) => {
+                            // Map topic to style class
+                            const topicCardClass = styles[`${post.topic}Card`] || '';
+                            const badgeClass = styles[`${post.topic}Badge`] || '';
+
+                            return (
+                                <div key={post.id} className={`${styles.adminCard} ${topicCardClass} flex items-center justify-between`}>
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <h3 className="text-xl font-bold text-white">{post.title}</h3>
+                                            {!post.published && (
+                                                <span className="px-2 py-0.5 text-[10px] uppercase font-bold bg-yellow-500/20 text-yellow-500 rounded tracking-wider">
+                                                    Draft
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className="text-sm text-gray-400 mb-4 line-clamp-1">{post.excerpt}</p>
+
+                                        <div className="flex items-center gap-4 text-xs font-medium">
+                                            <span className={`${styles.topicBadge} ${badgeClass}`}>
+                                                {post.topic}
                                             </span>
-                                        )}
+                                            <span className="text-gray-500">•</span>
+                                            <span className="text-gray-500">{new Date(post.created_at).toLocaleDateString()}</span>
+                                        </div>
                                     </div>
-                                    <p className="text-sm text-gray-400 mb-2">{post.excerpt}</p>
-                                    <div className="flex items-center justify-center gap-4 text-xs text-gray-500">
-                                        <span className="capitalize">{post.topic}</span>
-                                        <span>•</span>
-                                        <span>{new Date(post.created_at).toLocaleDateString()}</span>
+
+                                    <div className="flex items-center gap-2 ml-6">
+                                        <button
+                                            onClick={() => handleEdit(post.id)}
+                                            className="btn btn-outline p-3 hover:bg-white/10 border-white/10"
+                                            title="Edit Post"
+                                        >
+                                            <Edit size={18} className="text-blue-400" />
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(post.id)}
+                                            className="btn btn-outline p-3 hover:bg-red-500/10 border-white/10"
+                                            title="Delete Post"
+                                        >
+                                            <Trash2 size={18} className="text-red-400" />
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <button
-                                        onClick={() => handleEdit(post.id)}
-                                        className="btn btn-outline p-2"
-                                    >
-                                        <Edit size={18} />
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(post.id)}
-                                        className="btn btn-outline p-2 text-red-500 hover:bg-red-500/10"
-                                    >
-                                        <Trash2 size={18} />
-                                    </button>
-                                </div>
-                            </div>
-                        ))
+                            );
+                        })
                     )}
                 </div>
             </div>

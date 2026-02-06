@@ -1,0 +1,116 @@
+/* Admin Dashboard Styles */
+
+.adminCard {
+    background: rgba(23, 23, 31, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    /* Spacing between cards */
+}
+
+.adminCard:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Topic Specific Styles */
+.hubplateCard {
+    border-left: 4px solid #ef4444;
+}
+
+.hubplateCard:hover {
+    border-color: rgba(220, 38, 38, 0.6);
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.1);
+}
+
+.bayboltCard {
+    border-left: 4px solid #f97316;
+}
+
+.bayboltCard:hover {
+    border-color: rgba(249, 115, 22, 0.6);
+    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.1);
+}
+
+.hugloomCard {
+    border-left: 4px solid #f472b6;
+}
+
+.hugloomCard:hover {
+    border-color: rgba(244, 114, 182, 0.6);
+    box-shadow: 0 4px 20px rgba(244, 114, 182, 0.1);
+}
+
+.daylaborCard {
+    border-left: 4px solid #a855f7;
+}
+
+.daylaborCard:hover {
+    border-color: rgba(168, 85, 247, 0.6);
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1);
+}
+
+.raidmemegenCard {
+    border-left: 4px solid #00FF41;
+}
+
+.raidmemegenCard:hover {
+    border-color: rgba(0, 255, 65, 0.6);
+    box-shadow: 0 4px 20px rgba(0, 255, 65, 0.1);
+}
+
+.hangroomCard {
+    border-left: 4px solid #ec4899;
+}
+
+.hangroomCard:hover {
+    border-color: rgba(236, 72, 153, 0.6);
+    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.1);
+}
+
+/* Topic Badges */
+.topicBadge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.hubplateBadge {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.bayboltBadge {
+    background: rgba(249, 115, 22, 0.1);
+    color: #f97316;
+}
+
+.hugloomBadge {
+    background: rgba(244, 114, 182, 0.1);
+    color: #f472b6;
+}
+
+.daylaborBadge {
+    background: rgba(168, 85, 247, 0.1);
+    color: #a855f7;
+}
+
+.raidmemegenBadge {
+    background: rgba(0, 255, 65, 0.1);
+    color: #00FF41;
+}
+
+.hangroomBadge {
+    background: rgba(236, 72, 153, 0.1);
+    color: #ec4899;
+}

@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { linkify } from "@/utils/linkify";
 import { Metadata } from "next";
 import ShareModal from "./ShareModal";
+import styles from "./blog.module.css";
+import MarkdownRenderer from "@/components/blog/MarkdownRenderer";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
@@ -19,9 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const baseUrl = 'https://mktoolnest.vercel.app';
 
     if (!post) {
-        return {
-            title: 'Not Found | MK Tool Nest',
-        }
+        return { title: 'Not Found | MK Tool Nest' }
     }
 
     const imageUrl = post.image_url || `${baseUrl}/icon.png`;
@@ -29,21 +29,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
         title: `${post.title} | MK Tool Nest`,
         description: post.excerpt,
-        alternates: {
-            canonical: `${baseUrl}/blog/${slug}`,
-        },
+        alternates: { canonical: `${baseUrl}/blog/${slug}` },
         openGraph: {
             title: post.title,
             description: post.excerpt,
             url: `${baseUrl}/blog/${slug}`,
-            images: [
-                {
-                    url: imageUrl,
-                    width: 1200,
-                    height: 630,
-                    alt: post.title,
-                },
-            ],
+            images: [{ url: imageUrl, width: 1200, height: 630, alt: post.title }],
             type: 'article',
             publishedTime: post.created_at,
             authors: ['MK Tool Nest'],
@@ -57,10 +48,56 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
 }
 
+const topicStyles: Record<string, { gradient: string; text: string; meta: string; badge: string }> = {
+    hubplate: {
+        gradient: styles.gradientHubplate,
+        text: styles.textHubplate,
+        meta: styles.metaHubplate,
+        badge: 'topic-hubplate',
+    },
+    baybolt: {
+        gradient: styles.gradientBaybolt,
+        text: styles.textBaybolt,
+        meta: styles.metaBaybolt,
+        badge: 'topic-baybolt',
+    },
+    hugloom: {
+        gradient: styles.gradientHugloom,
+        text: styles.textHugloom,
+        meta: styles.metaHugloom,
+        badge: 'topic-hugloom',
+    },
+    daylabor: {
+        gradient: styles.gradientDaylabor,
+        text: styles.textDaylabor,
+        meta: styles.metaDaylabor,
+        badge: 'topic-daylabor',
+    },
+    raidmemegen: {
+        gradient: styles.gradientRaidmemegen,
+        text: styles.textRaidmemegen,
+        meta: styles.metaRaidmemegen,
+        badge: 'topic-raidmemegen',
+    },
+    hangroom: {
+        gradient: styles.gradientHangroom,
+        text: styles.textHangroom,
+        meta: styles.metaHangroom,
+        badge: 'topic-hangroom',
+    },
+};
+
+const topicNames: Record<string, string> = {
+    hubplate: 'HubPlate',
+    baybolt: 'Baybolt',
+    hugloom: 'HugLoom',
+    daylabor: 'Day Labor on Demand',
+    raidmemegen: 'Raid Generator',
+    hangroom: 'Hangroom',
+};
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-
     const supabase = await createClient();
     const { data: post } = await supabase
         .from("posts")
@@ -73,129 +110,79 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         notFound();
     }
 
-    const topicConfig = {
-        baybolt: {
-            name: "Baybolt",
-            gradient: "from-orange-500 via-orange-600 to-blue-900",
-            textColor: "text-orange-500"
-        },
-        hugloom: {
-            name: "HugLoom",
-            gradient: "from-pink-400 via-rose-400 to-red-400",
-            textColor: "text-pink-400"
-        },
-        daylabor: {
-            name: "Day Labor on Demand",
-            gradient: "from-purple-500 via-fuchsia-500 to-pink-500",
-            textColor: "text-purple-500"
-        },
-        raidmemegen: {
-            name: "Raid Generator",
-            gradient: "from-[#00FF41] via-[#008F11] to-[#003B00]",
-            textColor: "text-[#00FF41]"
-        },
-        hubplate: {
-            name: "HubPlate",
-            gradient: "from-red-600 via-orange-500 to-red-600",
-            textColor: "text-red-500"
-        },
-        hangroom: {
-            name: "Hangroom",
-            gradient: "from-pink-500 via-fuchsia-500 to-purple-600",
-            textColor: "text-pink-500"
-        },
-    };
-
-    const config = topicConfig[post.topic as keyof typeof topicConfig];
+    const style = topicStyles[post.topic] || topicStyles.hubplate;
+    const topicName = topicNames[post.topic] || 'Blog';
 
     return (
-        <div className="py-16 px-4">
-            <div className="container max-w-4xl">
-                {/* Back Button */}
-                <Link
-                    href={`/${post.topic}`}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-foreground mb-12 transition-colors group"
-                >
-                    <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                    Back to {config.name}
-                </Link>
+        <div className={styles.articleContainer}>
+            {/* Hero Section */}
+            <div
+                className={styles.heroSection}
+                style={{ backgroundImage: `url(${post.image_url || '/icon.png'})` }}
+            >
+                <div className={styles.heroOverlay} />
 
-                {/* Article Header */}
-                <article className={`fade-in-up blog-post-${post.topic}`}>
-                    <div className={`inline-block px-5 py-2 rounded-full topic-badge text-white text-sm font-bold mb-6 shadow-lg`}>
-                        {config.name}
-                    </div>
+                <div className={styles.heroContent}>
+                    {/* Back Button */}
+                    <Link href={`/${post.topic}`} className={styles.backButton}>
+                        <ArrowLeft size={16} />
+                        Back to {topicName}
+                    </Link>
 
-                    <h1 className={`text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight bg-gradient-to-r ${config.gradient} bg-clip-text text-transparent`}>
-                        {post.title}
-                    </h1>
-
-                    {/* Featured Image - Small Thumbnail */}
-                    {post.image_url && (
-                        <div style={{ marginBottom: '1rem' }}>
-                            <img
-                                src={post.image_url}
-                                alt={post.title}
-                                style={{
-                                    width: '80px',
-                                    height: '80px',
-                                    objectFit: 'cover',
-                                    borderRadius: '8px',
-                                    display: 'block'
-                                }}
-                            />
+                    {/* Article Header in Hero */}
+                    <header className={styles.articleHeader}>
+                        <div className={`${styles.topicBadge} ${style.badge}`}>
+                            {topicName}
                         </div>
-                    )}
 
-                    <div className="flex items-center gap-6 text-sm metadata-text mb-12 font-medium">
-                        <div className="flex items-center gap-2">
-                            <Calendar size={16} />
-                            <time>{new Date(post.created_at).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            })}</time>
+                        <h1 className={styles.articleTitle}>
+                            {post.title}
+                        </h1>
+
+                        <div className={styles.metadata}>
+                            <div className={styles.metadataItem}>
+                                <Calendar size={16} />
+                                <time>{new Date(post.created_at).toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                })}</time>
+                            </div>
+                            <div className={styles.metadataItem}>
+                                <Clock size={16} />
+                                <span>{Math.ceil(post.content.split(' ').length / 200)} min read</span>
+                            </div>
+                            <div className="ml-auto">
+                                <ShareModal
+                                    title={post.title}
+                                    buttonClassName="border border-white/20 text-white hover:bg-white/10"
+                                    gradientClass={style.gradient}
+                                />
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <Clock size={16} />
-                            <span>{Math.ceil(post.content.split(' ').length / 200)} min read</span>
-                        </div>
-                        <div className="ml-auto">
-                            <ShareModal
-                                title={post.title}
-                                buttonClassName={`border border-white/20`}
-                                gradientClass={config.gradient}
-                            />
-                        </div>
-                    </div>
+                    </header>
+                </div>
+            </div>
 
-                    {/* Excerpt */}
-                    <div className="text-xl text-gray-300 leading-relaxed mb-12 p-6 border-l-4 border-primary bg-white/5 rounded-r-lg">
-                        {post.excerpt}
-                    </div>
+            <div className={styles.articleInner}>
+                {/* Excerpt */}
+                <div className={styles.excerpt}>
+                    {post.excerpt}
+                </div>
 
-                    {/* Content */}
-                    <div className="blog-content prose-lg">
-                        <div
-                            dangerouslySetInnerHTML={{
-                                __html: linkify(post.content).replace(/\n/g, '<br />')
-                            }}
-                        />
-                    </div>
+                {/* Content */}
+                <div className={styles.content}>
+                    <MarkdownRenderer content={post.content} />
+                </div>
 
-                    {/* Back to Topic CTA */}
-                    <div className="mt-16 pt-12 border-t border-white/10">
-                        <Link
-                            href={`/${post.topic}`}
-                            className={`inline-flex items-center gap-2 ${config.textColor} font-semibold hover:gap-3 transition-all`}
-                        >
-                            <ArrowLeft size={18} />
-                            <span>View More {config.name} Articles</span>
-                        </Link>
-                    </div>
-                </article>
+                {/* Back to Topic CTA */}
+                <div className={styles.bottomCta}>
+                    <Link href={`/${post.topic}`} className={`${styles.bottomCtaLink} ${style.text}`}>
+                        <ArrowLeft size={18} />
+                        <span>View More {topicName} Articles</span>
+                    </Link>
+                </div>
             </div>
         </div>
     );
 }
-

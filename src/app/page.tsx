@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Wrench, Heart, Hammer, ArrowRight, Gamepad2, Utensils, Users } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
+import styles from "./home.module.css";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -34,8 +35,11 @@ export default async function Home() {
       subtitle: "For Restaurateurs",
       description: "Unlock the secrets to running a better restaurant. Discover expert tips and tricks for menu engineering, staff scheduling, and leveraging AI to maximize your venue's profitability.",
       icon: Utensils,
-      gradient: "from-red-600 via-orange-500 to-red-600",
-      iconColor: "text-red-500",
+      cardClass: styles.hubplateCard,
+      titleClass: styles.hubplateText,
+      subtitleClass: styles.hubplateSubtitle,
+      descriptionClass: styles.hubplateDescription,
+      gradientClass: styles.gradientHubplate,
       heroKey: "hero_hubplate"
     },
     {
@@ -44,8 +48,11 @@ export default async function Home() {
       subtitle: "For Creators",
       description: "Stop asking for algorithm permission. Own your brand, audience, and revenue with the ultimate content creator platform.",
       icon: Users,
-      gradient: "from-pink-500 via-fuchsia-500 to-purple-600",
-      iconColor: "text-pink-500",
+      cardClass: styles.hangroomCard,
+      titleClass: styles.hangroomText,
+      subtitleClass: styles.hangroomSubtitle,
+      descriptionClass: styles.hangroomDescription,
+      gradientClass: styles.gradientHangroom,
       heroKey: "hero_hangroom"
     },
     {
@@ -54,8 +61,11 @@ export default async function Home() {
       subtitle: "For Mechanics",
       description: "Master automotive repair with expert guides, diagnostic tips, and industry insights from seasoned professionals.",
       icon: Wrench,
-      gradient: "from-orange-500 via-orange-600 to-blue-900",
-      iconColor: "text-orange-500",
+      cardClass: styles.bayboltCard,
+      titleClass: styles.bayboltText,
+      subtitleClass: styles.bayboltSubtitle,
+      descriptionClass: styles.bayboltDescription,
+      gradientClass: styles.gradientBaybolt,
       heroKey: "hero_baybolt"
     },
     {
@@ -64,8 +74,11 @@ export default async function Home() {
       subtitle: "For Caretakers",
       description: "Compassionate caregiving strategies, wellness resources, and emotional support for healthcare heroes.",
       icon: Heart,
-      gradient: "from-pink-400 via-rose-400 to-red-400",
-      iconColor: "text-pink-400",
+      cardClass: styles.hugloomCard,
+      titleClass: styles.hugloomText,
+      subtitleClass: styles.hugloomSubtitle,
+      descriptionClass: styles.hugloomDescription,
+      gradientClass: styles.gradientHugloom,
       heroKey: "hero_hugloom"
     },
     {
@@ -74,8 +87,11 @@ export default async function Home() {
       subtitle: "For Gamers",
       description: "Generate squad-specific raid plans for Helldivers 2, WoW, and more. Add Meme Chaos for the ultimate strategy.",
       icon: Gamepad2,
-      gradient: "from-[#00FF41] via-[#008F11] to-[#003B00]",
-      iconColor: "text-[#00FF41]",
+      cardClass: styles.raidmemegenCard,
+      titleClass: styles.raidmemegenText,
+      subtitleClass: styles.raidmemegenSubtitle,
+      descriptionClass: styles.raidmemegenDescription,
+      gradientClass: styles.gradientRaidmemegen,
       heroKey: "hero_raidmemegen"
     },
     {
@@ -84,38 +100,43 @@ export default async function Home() {
       subtitle: "For Contractors",
       description: "Scale your contracting business with project management tactics, labor insights, and growth strategies.",
       icon: Hammer,
-      gradient: "from-purple-500 via-fuchsia-500 to-pink-500",
-      iconColor: "text-purple-500",
+      cardClass: styles.daylaborCard,
+      titleClass: styles.daylaborText,
+      subtitleClass: styles.daylaborSubtitle,
+      descriptionClass: styles.daylaborDescription,
+      gradientClass: styles.gradientDaylabor,
       heroKey: "hero_daylabor"
     },
   ];
 
   return (
-    <div className="relative">
-      {/* Hero Section */}
-      <section className="relative pt-[32px] pb-8 px-8 overflow-hidden min-h-[500px] flex flex-col justify-center">
+    <>
+      {/* Hero Section - Reduced height, pure separation */}
+      <section className="relative py-24 px-8 overflow-hidden min-h-[600px] flex flex-col justify-center items-center text-center">
         {/* Background Image */}
         {heroImageUrl && (
           <div className="absolute inset-0 z-0">
             <img
               src={heroImageUrl}
               alt="MK Tool Nest Hero"
-              className="w-full h-full object-cover opacity-40"
+              className="w-full h-full object-cover opacity-50"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/80 to-transparent"></div>
+            {/* Darker overlay as requested */}
+            <div className="absolute inset-0 bg-black/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
           </div>
         )}
 
-        <div className="container text-center relative z-10">
-          <h1 className="font-black mb-[32px] gradient-text text-5xl md:text-7xl">
+        <div className="container relative z-10 max-w-7xl mx-auto">
+          <h1 className="font-black mb-8 gradient-text text-[5rem] md:text-[10rem] leading-none tracking-tighter">
             Welcome to MK Tool Nest
           </h1>
 
-          <div className="mb-[16px]">
+          <div className="mb-4">
             <span className="text-2xl font-medium text-gray-300">Your Professional Resource Hub</span>
           </div>
 
-          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-[96px] leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-24 leading-relaxed">
             Empowering professionals with <span className="text-white font-semibold">expert insights</span>,
             <span className="text-white font-semibold"> actionable tools</span>, and
             <span className="text-white font-semibold"> industry knowledge</span> across five specialized fields.
@@ -123,52 +144,53 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Topics Grid */}
-      <section className="pt-[4px] pb-[32px] px-[4px]">
+      {/* FORCE SPACER - 300px GAP */}
+      <div style={{ height: '300px', width: '100%', background: 'transparent' }}></div>
+
+      {/* Topics Grid - Forced Separation */}
+      <section className="pt-0 pb-16 px-4">
         <div className="container">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-[32px] max-w-7xl mx-auto">
-            {topics.map((topic, index) => {
+          <div
+            className="grid md:grid-cols-2 lg:grid-cols-4 mx-auto"
+            style={{ display: 'grid', gap: '60px', maxWidth: '1600px' }}
+          >
+            {topics.map((topic) => {
               const Icon = topic.icon;
               const cardHero = heroMap[topic.heroKey as keyof typeof heroMap];
 
               return (
                 <Link href={`/${topic.id}`} key={topic.id}>
-                  <div className={`card p-8 h-full group cursor-pointer flex flex-col items-center text-center relative overflow-hidden ${topic.id === 'hubplate' ? 'hubplate-card' : topic.id === 'baybolt' ? 'baybolt-card' : topic.id === 'hugloom' ? 'hugloom-card' : topic.id === 'daylabor' ? 'daylabor-card' : topic.id === 'raidmemegen' ? 'raidmemegen-card' : topic.id === 'hangroom' ? 'hangroom-card' : ''}`} style={{ animationDelay: `${index * 100}ms` }}>
-
+                  <div className={`${styles.topicCard} ${topic.cardClass} cursor-pointer`}>
                     {/* Card Hero Background */}
                     {cardHero && (
-                      <div className="absolute inset-0 z-0">
-                        <img
-                          src={cardHero}
-                          alt={`${topic.title} Background`}
-                          className="w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity duration-500 group-hover:scale-105 transform shadow-2xl"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/80 to-black/60"></div>
+                      <div className={styles.cardBackground}>
+                        <img src={cardHero} alt={`${topic.title} Background`} />
+                        <div className={styles.cardBackgroundOverlay}></div>
                       </div>
                     )}
 
                     {/* Icon with Gradient Background */}
-                    <div className="relative mb-6 z-10">
-                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-2xl`}>
+                    <div className={styles.iconContainer}>
+                      <div className={`${styles.iconBox} ${topic.gradientClass}`}>
                         <Icon className="text-white" size={36} strokeWidth={2.5} />
                       </div>
-                      <div className={`absolute inset-0 w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} blur-xl opacity-50 group-hover:opacity-70 transition-opacity`}></div>
+                      <div className={`${styles.iconGlow} ${topic.gradientClass}`}></div>
                     </div>
 
                     {/* Content */}
-                    <div className="mb-4 relative z-10">
-                      <h2 className={`text-2xl font-bold mb-1 ${topic.id === 'hubplate' ? 'text-red-500' : topic.id === 'baybolt' ? 'text-orange-500' : topic.id === 'raidmemegen' ? 'text-[#00FF41]' : 'text-white'}`}>{topic.title}</h2>
-                      <p className={`text-sm font-medium ${topic.id === 'hubplate' ? 'text-red-400' : topic.id === 'baybolt' ? 'text-orange-400' : topic.id === 'raidmemegen' ? 'text-[#00FF41]' : 'text-gray-500'}`}>{topic.subtitle}</p>
+                    <div className={styles.cardContent}>
+                      <h2 className={`${styles.cardTitle} ${topic.titleClass}`}>{topic.title}</h2>
+                      <p className={`${styles.cardSubtitle} ${topic.subtitleClass}`}>{topic.subtitle}</p>
                     </div>
 
-                    <p className={`mb-6 leading-relaxed relative z-10 ${topic.id === 'hubplate' ? 'text-red-300/90' : topic.id === 'baybolt' ? 'text-orange-300/90' : topic.id === 'raidmemegen' ? 'text-[#00FF41]/80' : 'text-gray-400'}`}>
+                    <p className={`${styles.cardDescription} ${topic.descriptionClass}`}>
                       {topic.description}
                     </p>
 
                     {/* CTA */}
-                    <div className={`relative z-10 flex items-center justify-center ${topic.iconColor} font-semibold text-sm group-hover:gap-3 transition-all duration-300`}>
+                    <div className={`${styles.cardCta} ${topic.titleClass}`}>
                       <span>Explore Articles</span>
-                      <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                      <ArrowRight size={18} className="transition-transform" />
                     </div>
                   </div>
                 </Link>
@@ -209,10 +231,10 @@ export default async function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="pt-20 pb-[64px] px-4">
+      <section className="pt-20 pb-16 px-4">
         <div className="container">
-          <div className="card built-for-pros-card p-12 text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-purple-500/10"></div>
+          <div className={styles.builtForProsCard}>
+            <div className={styles.builtForProsGradient}></div>
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Built for Professionals</h2>
               <p className="text-gray-400 mb-8 max-w-2xl mx-auto text-lg">
@@ -236,6 +258,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

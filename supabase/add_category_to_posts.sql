@@ -1,7 +1,8 @@
--- Add category column to posts table
-ALTER TABLE posts ADD COLUMN IF NOT EXISTS category TEXT DEFAULT 'GENERAL';
+-- Add 'category' column to 'posts' table
+ALTER TABLE posts ADD COLUMN IF NOT EXISTS category TEXT DEFAULT 'General';
 
--- Update existing posts to have some variety if possible (optional, but good for demo)
-UPDATE posts SET category = 'STRATEGIES' WHERE excerpt ILIKE '%strategy%' OR title ILIKE '%strategy%';
-UPDATE posts SET category = 'TIPS' WHERE excerpt ILIKE '%tips%' OR title ILIKE '%tips%';
-UPDATE posts SET category = 'GUIDE' WHERE excerpt ILIKE '%guide%' OR title ILIKE '%guide%';
+-- Update existing rows to have a default category if null
+UPDATE posts SET category = 'General' WHERE category IS NULL;
+
+-- Create an index for faster filtering by category
+CREATE INDEX IF NOT EXISTS posts_category_idx ON posts(category);
