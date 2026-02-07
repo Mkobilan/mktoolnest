@@ -381,6 +381,27 @@ function PostEditorContent() {
                                 </div>
                             </div>
 
+                            {/* External Link - Moved up for visibility */}
+                            <div className="space-y-2 p-6 rounded-2xl bg-blue-500/5 border border-blue-500/10" style={{ backgroundColor: 'rgba(59, 130, 246, 0.05)', borderColor: 'rgba(59, 130, 246, 0.1)' }}>
+                                <div className="flex items-center justify-between mb-1">
+                                    <label className="block text-[10px] font-bold text-blue-400 uppercase tracking-widest">
+                                        External Source URL <span className="text-blue-500/50">(Optional)</span>
+                                    </label>
+                                    <span className="text-[9px] text-blue-500/60 font-medium">Directory Mode</span>
+                                </div>
+                                <input
+                                    type="url"
+                                    value={formData.external_link}
+                                    onChange={(e) => setFormData({ ...formData, external_link: e.target.value })}
+                                    placeholder="https://hubplate.app/blog/original-article"
+                                    className="w-full px-4 py-3.5 bg-slate-900/50 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all shadow-sm"
+                                    style={{ backgroundColor: 'rgba(15, 23, 42, 0.5)', color: 'white', borderColor: 'rgba(255,255,255,0.1)' }}
+                                />
+                                <p className="text-[10px] text-gray-500 mt-2 italic">
+                                    Providing a link here will automatically add a "Read Full Article" button to the post and set the canonical URL for SEO.
+                                </p>
+                            </div>
+
                             {/* Featured Image URL */}
                             <div className="space-y-2">
                                 <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Featured Image URL</label>
@@ -422,18 +443,7 @@ function PostEditorContent() {
                                 />
                             </div>
 
-                            {/* External Link */}
-                            <div className="space-y-2">
-                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">External Link <span className="text-gray-600">(optional)</span></label>
-                                <input
-                                    type="url"
-                                    value={formData.external_link}
-                                    onChange={(e) => setFormData({ ...formData, external_link: e.target.value })}
-                                    placeholder="https://example.com/original-post"
-                                    className="w-full px-4 py-3.5 bg-slate-900/50 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all shadow-sm"
-                                    style={{ backgroundColor: 'rgba(15, 23, 42, 0.5)', color: 'white', borderColor: 'rgba(255,255,255,0.1)' }}
-                                />
-                            </div>
+
 
                             {/* Cancel Button */}
                             <div className="pt-6">

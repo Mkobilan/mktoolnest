@@ -29,7 +29,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
         title: `${post.title} | MK Tool Nest`,
         description: post.excerpt,
-        alternates: { canonical: `${baseUrl}/blog/${slug}` },
+        alternates: {
+            canonical: post.external_link ? post.external_link : `${baseUrl}/blog/${slug}`
+        },
         openGraph: {
             title: post.title,
             description: post.excerpt,
@@ -174,6 +176,22 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 <div className={styles.content}>
                     <MarkdownRenderer content={post.content} />
                 </div>
+
+                {/* External Link Action */}
+                {post.external_link && (
+                    <div className="mt-12 p-8 rounded-2xl bg-white/5 border border-white/10 text-center">
+                        <h3 className="text-xl font-bold mb-4 text-white">Continue Reading</h3>
+                        <p className="text-gray-400 mb-8">This is an excerpt from a full article posted on our partner site.</p>
+                        <Link
+                            href={post.external_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`inline-block px-8 py-4 rounded-xl font-bold text-white transition-all hover:scale-105 active:scale-95 ${style.gradient}`}
+                        >
+                            Read Full Article at {topicNames[post.topic]}
+                        </Link>
+                    </div>
+                )}
 
                 {/* Back to Topic CTA */}
                 <div className={styles.bottomCta}>
