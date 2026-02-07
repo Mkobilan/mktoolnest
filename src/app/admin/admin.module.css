@@ -38,12 +38,12 @@
 }
 
 .hugloomCard {
-    border-left: 4px solid #f472b6;
+    border-left: 4px solid #FF8A80;
 }
 
 .hugloomCard:hover {
-    border-color: rgba(244, 114, 182, 0.6);
-    box-shadow: 0 4px 20px rgba(244, 114, 182, 0.1);
+    border-color: rgba(255, 138, 128, 0.6);
+    box-shadow: 0 4px 20px rgba(255, 138, 128, 0.1);
 }
 
 .daylaborCard {
@@ -96,8 +96,8 @@
 }
 
 .hugloomBadge {
-    background: rgba(244, 114, 182, 0.1);
-    color: #f472b6;
+    background: rgba(255, 138, 128, 0.1);
+    color: #FF8A80;
 }
 
 .daylaborBadge {
