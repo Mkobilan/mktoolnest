@@ -17,10 +17,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const staticRoutes = [
         '',
         '/blog',
+        '/about',
+        '/contact',
+        '/terms',
+        '/privacy',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
-        changeFrequency: route === '/blog' ? 'daily' as const : 'weekly' as const,
+        changeFrequency: (route === '/blog' || route === '') ? 'daily' as const : 'weekly' as const,
         priority: route === '' ? 1 : 0.8,
     }))
 

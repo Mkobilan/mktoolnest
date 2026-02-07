@@ -101,7 +101,7 @@ export default function RootLayout({
               </Link>
             </nav>
 
-            <Link href="/" className="absolute left-1/2 -translate-x-1/2 font-black tracking-tight hover:opacity-80 transition-opacity gradient-text whitespace-nowrap" style={{ fontSize: '4rem', lineHeight: '1.1' }}>
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2 font-black tracking-tighter hover:opacity-80 transition-opacity gradient-text uppercase whitespace-nowrap" style={{ fontSize: '1.8rem', lineHeight: '1' }}>
               MK Tool Nest
             </Link>
 
@@ -115,15 +115,42 @@ export default function RootLayout({
         <main className="min-h-screen pb-20 relative z-10">
           {children}
         </main>
-        <footer className="border-t border-white/5 py-12 mt-20 relative z-10">
-          <div className="container">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <footer className="border-t border-white/5 py-16 mt-20 relative z-10 bg-[#0a0a0f]">
+          <div className="container px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
               <div className="text-center md:text-left">
-                <div className="text-xl font-bold mb-2">mktoolnest</div>
-                <p className="text-sm text-gray-500">Empowering professionals across industries</p>
+                <div className="text-2xl font-black mb-4 gradient-text">MK Tool Nest</div>
+                <p className="text-sm text-gray-500 max-w-xs mx-auto md:mx-0">
+                  Empowering professionals across industries with expert insights and specialized tools.
+                </p>
               </div>
-              <div className="text-sm text-gray-500">
-                &copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> mktoolnest. All rights reserved.
+
+              <div className="flex flex-col gap-4 text-center md:text-left">
+                <h3 className="text-sm font-bold text-white uppercase tracking-widest">Platform</h3>
+                <Link href="/about" className="text-sm text-gray-400 hover:text-white transition-colors">About Us</Link>
+                <Link href="/contact" className="text-sm text-gray-400 hover:text-white transition-colors">Contact Us</Link>
+                <Link href="/blog" className="text-sm text-gray-400 hover:text-white transition-colors">Blog Hub</Link>
+              </div>
+
+              <div className="flex flex-col gap-4 text-center md:text-left">
+                <h3 className="text-sm font-bold text-white uppercase tracking-widest">Legal</h3>
+                <Link href="/terms" className="text-sm text-gray-400 hover:text-white transition-colors">Terms of Service</Link>
+                <Link href="/privacy" className="text-sm text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
+              </div>
+
+              <div className="flex flex-col gap-4 text-center md:text-left">
+                <h3 className="text-sm font-bold text-white uppercase tracking-widest">Connect</h3>
+                <a href="https://x.com/MatthewKobilan" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white transition-colors">X (Twitter)</a>
+                <a href="https://www.facebook.com/matthewkobilan" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white transition-colors">Facebook</a>
+              </div>
+            </div>
+
+            <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+              <div>
+                &copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> MK Tool Nest. All rights reserved.
+              </div>
+              <div className="flex gap-6 italic">
+                <span>By: Matthew Kobilan</span>
               </div>
             </div>
           </div>

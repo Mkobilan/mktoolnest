@@ -126,20 +126,24 @@ export default async function Home() {
           </div>
         )}
 
-        <div className="container relative z-10 max-w-7xl mx-auto">
-          <h1 className="font-black mb-8 gradient-text text-[5rem] md:text-[10rem] leading-none tracking-tighter">
-            Welcome to MK Tool Nest
-          </h1>
+        <div className="container relative z-10 max-w-7xl mx-auto flex flex-col items-center">
+          <div className="glass p-12 md:p-20 rounded-[4rem] border border-white/10 backdrop-blur-2xl bg-black/40 shadow-2xl flex flex-col items-center w-full max-w-7xl transition-all duration-500">
+            <h1 className="font-black mb-8 gradient-text text-[5rem] md:text-[8.5rem] leading-none tracking-tighter uppercase">
+              MK Tool Nest
+            </h1>
 
-          <div className="mb-4">
-            <span className="text-2xl font-medium text-gray-300">Your Professional Resource Hub</span>
+            <div className="mb-8">
+              <span className="text-xl md:text-3xl font-bold text-white tracking-wide">
+                Your home for smart tools + blogs, guides, and updates for every MK app
+              </span>
+            </div>
+
+            <p className="text-lg md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-medium">
+              Empowering professionals with <span className="text-blue-400 font-bold">expert insights</span>,
+              <span className="text-blue-400 font-bold"> actionable tools</span>, and
+              <span className="text-blue-400 font-bold"> industry knowledge</span>.
+            </p>
           </div>
-
-          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-24 leading-relaxed">
-            Empowering professionals with <span className="text-white font-semibold">expert insights</span>,
-            <span className="text-white font-semibold"> actionable tools</span>, and
-            <span className="text-white font-semibold"> industry knowledge</span> across five specialized fields.
-          </p>
         </div>
       </section>
 
