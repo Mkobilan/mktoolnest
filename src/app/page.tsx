@@ -119,11 +119,10 @@ export default async function Home() {
             <img
               src={heroImageUrl}
               alt="MK Tool Nest Hero"
-              className="w-full h-full object-cover opacity-50"
+              className="w-full h-full object-cover opacity-100"
             />
-            {/* Darker overlay as requested */}
-            <div className="absolute inset-0 bg-black/60"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
+            {/* Very subtle gradient to ensure some text contrast at the very bottom */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/40 via-transparent to-transparent"></div>
           </div>
         )}
 

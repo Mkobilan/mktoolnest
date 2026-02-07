@@ -21,6 +21,37 @@
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
 }
 
+/* Featured Card Hover Variants */
+.hubplateFeatured:hover {
+    border-color: rgba(220, 38, 38, 0.6);
+    box-shadow: 0 0 40px rgba(220, 38, 38, 0.3), 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.bayboltFeatured:hover {
+    border-color: rgba(255, 107, 26, 0.6);
+    box-shadow: 0 0 40px rgba(255, 107, 26, 0.3), 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.hugloomFeatured:hover {
+    border-color: rgba(255, 138, 128, 0.6);
+    box-shadow: 0 0 40px rgba(255, 138, 128, 0.3), 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.daylaborFeatured:hover {
+    border-color: rgba(217, 70, 239, 0.6);
+    box-shadow: 0 0 40px rgba(217, 70, 239, 0.3), 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.raidmemegenFeatured:hover {
+    border-color: rgba(0, 255, 65, 0.6);
+    box-shadow: 0 0 40px rgba(0, 255, 65, 0.3), 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.hangroomFeatured:hover {
+    border-color: rgba(236, 72, 153, 0.6);
+    box-shadow: 0 0 40px rgba(236, 72, 153, 0.3), 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
 .featuredCardImage {
     overflow: hidden;
     flex-shrink: 0;
@@ -153,6 +184,37 @@
 .gridCard:hover {
     transform: translateY(-4px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Grid Card Hover Variants */
+.hubplateHover:hover {
+    border-color: rgba(220, 38, 38, 0.6);
+    box-shadow: 0 0 30px rgba(220, 38, 38, 0.4), 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.bayboltHover:hover {
+    border-color: rgba(255, 107, 26, 0.6);
+    box-shadow: 0 0 30px rgba(255, 107, 26, 0.4), 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.hugloomHover:hover {
+    border-color: rgba(255, 138, 128, 0.6);
+    box-shadow: 0 0 30px rgba(255, 138, 128, 0.4), 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.daylaborHover:hover {
+    border-color: rgba(217, 70, 239, 0.6);
+    box-shadow: 0 0 30px rgba(217, 70, 239, 0.4), 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.raidmemegenHover:hover {
+    border-color: rgba(0, 255, 65, 0.6);
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.4), 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.hangroomHover:hover {
+    border-color: rgba(236, 72, 153, 0.6);
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.4), 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .gridCardImageWrapper {

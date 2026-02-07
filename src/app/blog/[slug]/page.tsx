@@ -141,6 +141,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             {post.title}
                         </h1>
 
+                        <div className={styles.authorName}>
+                            By: Matthew Kobilan
+                        </div>
+
                         <div className={styles.metadata}>
                             <div className={styles.metadataItem}>
                                 <Calendar size={16} />

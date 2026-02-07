@@ -124,17 +124,36 @@ export default function HeroSettings() {
                     {heroSettings.map((setting) => (
                         <div key={setting.key} className="bg-slate-900 border border-slate-800 rounded-xl p-6">
                             <div className="flex items-start gap-6">
-                                {/* Preview */}
-                                <div className="w-48 h-28 rounded-lg overflow-hidden bg-slate-800 flex-shrink-0">
+                                {/* Preview - Using inline styles for absolute control */}
+                                <div
+                                    style={{
+                                        width: '120px',
+                                        height: '80px',
+                                        flexShrink: 0,
+                                        borderRadius: '8px',
+                                        overflow: 'hidden',
+                                        backgroundColor: '#1e293b',
+                                        border: '1px solid #334155',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)'
+                                    }}
+                                >
                                     {settings[setting.key] ? (
                                         <img
                                             src={settings[setting.key]}
                                             alt={setting.label}
-                                            className="w-full h-full object-cover"
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'contain',
+                                                display: 'block'
+                                            }}
                                         />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-gray-600">
-                                            <ImageIcon size={32} />
+                                        <div style={{ color: '#475569' }}>
+                                            <ImageIcon size={24} />
                                         </div>
                                     )}
                                 </div>
